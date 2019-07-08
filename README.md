@@ -13,11 +13,16 @@ For this project we will be using the following technologies:
 ## Redux Stores
 1. activeGames = A list of available games the user can join. Only games that are not full will be shown.
 2. currentGame = The game the user selected. Object of Game which includes the two boards and their tiles.
-3. gameState = There will be 4 different states of the game 
+3. sessionState = There will be 4 different states of the session 
     * Idle: User is browsing the website (not in game)
     * InGame: User has entered a game and is preparing his board
     * Running: Both users are ready to play
     * GameOver: Win condition met. Displaying score.
+4. gameState = The current state of an existing game.
+    * New: Game has been created and ready to accept players
+    * Active: Game has two players and is currently in play mode.
+    * Closed: Game is finished and win condition is met.
+5. Scores = An object that contains two nested objects with each user's current score (Total Bad Moves, Total Good Moves, Accuracy).
 
 ## Website Routes
 @root : http://mywebsite.com/
