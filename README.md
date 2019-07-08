@@ -28,14 +28,14 @@ For this project we will be using the following technologies:
 ## File Structure
 For the client we will be following the conventional React Redux file strucutre.
 
-The API will have the following file structure:
-api
-|--controllers
-|--helpers
-|--middlewares
-|--models
-|--routes
-app.js
-config.js
-db.js
-server.js
+The API will have the following file structure:  
+api  
+|--controllers  
+|--helpers  
+|--middlewares  
+|--models  
+|--routes  
+|app.js  
+|config.js  
+|db.js  
+|server.js  
