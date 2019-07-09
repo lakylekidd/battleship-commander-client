@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { newUser } from '../actions/userActions'
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     userName: '',
     submitted: false
@@ -15,6 +17,7 @@ export default class Login extends Component {
     console.log('Submitting')
     this.setState({submitted: true})
     //send it to the store
+    this.props.newUser(this.state.userName)
   }
 
   render() {
@@ -37,3 +40,5 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(null, { newUser })(Login)
