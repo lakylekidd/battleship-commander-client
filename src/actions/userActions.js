@@ -2,7 +2,7 @@ import request from 'superagent'
 
 export const SET_USER = 'SET_USER'
 
-const baseUrl = ''
+const baseUrl = process.env.API_URL || 'http://localhost:5000'
 
 const setUser = (user, token) => ({
   type: SET_USER,
@@ -17,12 +17,11 @@ const setUser = (user, token) => ({
  * @param {String} user The user name
  */
 export const addNewUser = (user) => (dispatch) => {
-  dispatch(setUser(user, "token"))
-  // request
-  //   .post(`${baseUrl}/`)
-  //   .then(response => {
-  //     console.log('Adding new User', response)
-  //     dispatch(setUser(user, response.jwt))
-  //   })
-  //   .catch(console.error)
+  request
+    .post(`${baseUrl}/users/login`)
+    .send({username: user})
+    .then(response => {
+      dispatch(setUser(user, response.jwt))
+    })
+    .catch(console.error)
 }
