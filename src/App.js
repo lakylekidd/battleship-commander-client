@@ -9,8 +9,9 @@ function App() {
 
       </header>
 
-      Are we Up?
-    </div>
+      <h1> BattleShip Commander </h1>    
+            Working ... 
+  </div>
   );
 }
 
