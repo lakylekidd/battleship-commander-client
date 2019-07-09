@@ -21,7 +21,8 @@ export const addNewUser = (user) => (dispatch) => {
     .post(`${baseUrl}/users/login`)
     .send({username: user})
     .then(response => {
-      dispatch(setUser(user, response.jwt))
+      const text = JSON.parse(response.text)
+      dispatch(setUser(user, text.jwt))
     })
     .catch(console.error)
 }
