@@ -23,12 +23,15 @@ For this project we will be using the following technologies:
     * Active: Game has two players and is currently in play mode.
     * Closed: Game is finished and win condition is met.
 5. Scores = An object that contains two nested objects with each user's current score (Total Bad Moves, Total Good Moves, Accuracy).
+6. CurrentUser = Holds the name of the user
 
 ## Website Routes
 @root : http://mywebsite.com/
 * GET @root/games : a list of available games to join
 * POST @root/games : creates a new game
 * POST @root/games/:id : accepts acctions from players
+* @root/games/:id/stream : the stream of the selected game.
+* @root/games/:id/join : user joins the game.
 
 ## File Structure
 For the client we will be following the conventional React Redux file strucutre.
