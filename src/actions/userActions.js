@@ -1,6 +1,7 @@
 import request from 'superagent'
 
 export const SET_USER = 'SET_USER'
+export const CREATE_GAME = 'CREATE_GAME'
 
 const baseUrl = process.env.API_URL || 'http://localhost:5000'
 
@@ -25,4 +26,29 @@ export const addNewUser = (user) => (dispatch) => {
       dispatch(setUser(user, text.jwt))
     })
     .catch(console.error)
+}
+
+// const setGame = (id) => ({
+//   type: CREATE_GAME,
+//   payload: id
+// })
+
+/**
+ * 
+ * @param {String} user The user Name
+ * @param {String} token The Token to log in.
+ */
+export const createNewGame = (user, token) => (dispatch) => {
+  console.log('CREATE new GAME', user)
+
+  // request
+  //   .post(`${baseUrl}/games`)
+  //   .set({'Authorization': 'Bearer ' + token})
+  //   .send({user})
+  //   .then(response => {
+  //     console.log('Res from Creat /games', JSON.parse(response.text).id)
+  //     //dispatch an action that connects to games/:id/stream
+  //   })
+  //   .catch(console.error)
+
 }
