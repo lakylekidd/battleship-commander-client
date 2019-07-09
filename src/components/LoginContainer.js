@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { newUser } from '../actions/userActions'
+import { addNewUser } from '../actions/userActions'
 
 import './css/loginContainer.css'
 
@@ -17,23 +17,24 @@ class Login extends Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({submitted: true})
-    this.props.newUser(this.state.userName)
+
+    this.props.addNewUser(this.state.userName)
   }
 
   render() {
     return (
       <div className="loginContainer">
-        {this.state.submitted 
+        { this.state.submitted 
           ? <h2>Welcome {this.state.userName}</h2>
-          : <form>
-              <p> Introduce your name: </p>      
+          : <form onSubmit={this.handleSubmit}>
+              <h2> Select your User Name: </h2>      
               <input 
                 type="text" 
                 name="login" 
                 value={this.state.userName}
                 onChange={this.handleChange}
               />
-              <button onClick={this.handleSubmit}>Submit</button>
+              <button>Submit</button>
             </form>
         }
       </div>
@@ -41,4 +42,4 @@ class Login extends Component {
   }
 }
 
-export default connect(null, { newUser })(Login)
+export default connect(null, { addNewUser })(Login)

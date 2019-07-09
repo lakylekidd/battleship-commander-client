@@ -8,12 +8,8 @@ class Main extends Component {
     console.log('redux store', this.props.currentUser)
     return (
       <div>
-        { 
-          (!this.props.currentUser)
-          ? <Login />
-          : <CreateJoin />
-        }
-        
+        <Login />
+        { this.props.currentUser && <CreateJoin />}
       </div>
     )
   }
