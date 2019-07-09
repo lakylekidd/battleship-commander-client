@@ -6,7 +6,9 @@ class BoardComponent extends Component {
     render() {
         // Check if current game exists
         const game = this.props.game;
-
+        if (!game) {
+            // Redirect the user to the login screen
+        }
 
         return (
             <div className="board">
