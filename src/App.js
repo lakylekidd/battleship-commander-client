@@ -1,7 +1,7 @@
 import React from 'react';
 import store from './store'
 import { Provider } from 'react-redux'
-import LoginContainer from './components/LoginContainer'
+import Main from './components/Main'
 
 import './App.css';
 
@@ -11,7 +11,8 @@ function App() {
       <div className="App">
         <h1> BattleShip Commander </h1>    
           <p> Working ...  </p>
-          <LoginContainer />
+
+          <Main />
       </div>
     </Provider>
 

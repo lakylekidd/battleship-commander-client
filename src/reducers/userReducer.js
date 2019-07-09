@@ -1,9 +1,12 @@
-import { NEW_USER } from '../actions/userActions'
+import { SET_USER } from '../actions/userActions'
 
-const reducer = (state = {} , action = {}) => {
+const reducer = (state = null , action = {}) => {
   switch(action.type) {
-    case NEW_USER:
-      return action.payload;
+    case SET_USER:
+      return {
+        name: action.payload.user,
+        token: action.payload.token
+      };
     default:
       return state
   }
