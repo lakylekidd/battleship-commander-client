@@ -1,9 +1,11 @@
 import { NEW_USER } from '../actions/userActions'
 
-const reducer = (state = {} , action = {}) => {
+const reducer = (state = null , action = {}) => {
   switch(action.type) {
     case NEW_USER:
-      return action.payload;
+      return {
+        name: action.payload
+      };
     default:
       return state
   }
