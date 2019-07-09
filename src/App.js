@@ -1,17 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import store from './store'
+import { Provider } from 'react-redux'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <Provider store={store}>
+      <div className="App">
+        <h1> BattleShip Commander </h1>    
+          <p> Working ...  </p>
+      </div>
+    </Provider>
 
-      </header>
-
-      <h1> BattleShip Commander </h1>    
-            Working ... 
-  </div>
   );
 }
 
