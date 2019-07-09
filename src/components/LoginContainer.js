@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { newUser } from '../actions/userActions'
 
-export default class Login extends Component {
+import './css/loginContainer.css'
+
+class Login extends Component {
   state = {
     userName: '',
     submitted: false
@@ -12,14 +16,13 @@ export default class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log('Submitting')
     this.setState({submitted: true})
-    //send it to the store
+    this.props.newUser(this.state.userName)
   }
 
   render() {
     return (
-      <div>
+      <div className="loginContainer">
         {this.state.submitted 
           ? <h2>Welcome {this.state.userName}</h2>
           : <form>
@@ -37,3 +40,5 @@ export default class Login extends Component {
     )
   }
 }
+
+export default connect(null, { newUser })(Login)
