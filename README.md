@@ -9,6 +9,7 @@ For this project we will be using the following technologies:
 * PostgreSQL
 * React - Redux
 * Javascript
+* Server-sent Events
 
 ## Redux Stores
 1. activeGames = A list of available games the user can join. Only games that are not full will be shown.
