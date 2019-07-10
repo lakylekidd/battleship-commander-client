@@ -1,14 +1,15 @@
+import { GAME_DATA_RECEIVED } from '../actions/userActions'
 
-// Define the initial state of the current game as empty
-const initialState = {};
-
-// Define the reducer for the current game
-const reducer = (state = initialState, action = {}) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
+// Current game reducer holds the updated game object
+// that gets streamed directly from the server.
+const reducer = (state = null, action = {}) => {
+  switch (action.type) {
+    case GAME_DATA_RECEIVED:
+      return action.payload
+    default:
+      return state
+  }
 }
 
 // Export the reducer
-export default reducer;
+export default reducer
