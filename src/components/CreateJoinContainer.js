@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {createNewGame} from '../actions/userActions'
 import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom'
+import { browserHistory } from 'react-router'
+
 
 class CreateJoinContainer extends Component {
   state = {

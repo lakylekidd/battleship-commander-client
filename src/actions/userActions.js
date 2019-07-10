@@ -1,4 +1,5 @@
 import request from 'superagent'
+import { browserHistory } from 'react-router'
 
 export const SET_USER = 'SET_USER'
 export const CREATE_GAME = 'CREATE_GAME'
@@ -28,10 +29,10 @@ export const addNewUser = (user) => (dispatch) => {
     .catch(console.error)
 }
 
-// const setGame = (id) => ({
-//   type: CREATE_GAME,
-//   payload: id
-// })
+const setGame = (id) => ({
+  type: CREATE_GAME,
+  payload: id
+})
 
 /**
  * 
@@ -46,8 +47,14 @@ export const createNewGame = (user, token) => (dispatch) => {
     .set({'Authorization': 'Bearer ' + token})
     .send({user})
     .then(response => {
-      console.log('Res from Creat /games', JSON.parse(response.text).id)
+      const game = JSON.parse(response.text)
+      console.log('Res from Creat /games', game.gameId)
       //dispatch an action that connects to games/:id/stream
+      // browserHistory.push(`/games/${game.gameId}/stream`) V3
+      // this.props.history.push('/dashboard'); V4
+
+      dispatch(setGame(game.gameId))
+
     })
     .catch(console.error)
 

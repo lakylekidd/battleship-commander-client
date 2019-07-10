@@ -15,7 +15,6 @@ function App() {
           <Route path="/" exact component={Main} />
       </div>
     </Provider>
-
   );
 }
 
