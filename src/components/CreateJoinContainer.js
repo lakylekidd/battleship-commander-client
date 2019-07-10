@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import {createNewGame} from '../actions/userActions'
 import { connect } from 'react-redux';
+// import { Link } from 'react-router-dom'
 
 class CreateJoinContainer extends Component {
-  
+  state = {
+
+  }
+
   createGame = () => {
     const { name, token } = this.props.currentUser
     console.log('store', name, token)
@@ -18,6 +22,7 @@ class CreateJoinContainer extends Component {
   render() {
     return (
       <div>
+        
         <button onClick={this.createGame}>New Game</button>
         <button>Join Game</button>
       </div>

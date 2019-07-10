@@ -41,14 +41,14 @@ export const addNewUser = (user) => (dispatch) => {
 export const createNewGame = (user, token) => (dispatch) => {
   console.log('CREATE new GAME', user)
 
-  // request
-  //   .post(`${baseUrl}/games`)
-  //   .set({'Authorization': 'Bearer ' + token})
-  //   .send({user})
-  //   .then(response => {
-  //     console.log('Res from Creat /games', JSON.parse(response.text).id)
-  //     //dispatch an action that connects to games/:id/stream
-  //   })
-  //   .catch(console.error)
+  request
+    .post(`${baseUrl}/games`)
+    .set({'Authorization': 'Bearer ' + token})
+    .send({user})
+    .then(response => {
+      console.log('Res from Creat /games', JSON.parse(response.text).id)
+      //dispatch an action that connects to games/:id/stream
+    })
+    .catch(console.error)
 
 }
