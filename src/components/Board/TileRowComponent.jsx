@@ -14,6 +14,10 @@ export default class TileRowComponent extends Component {
         tiles: []
     }
 
+    click = (index) => {
+        console.log("CLICKED: ", index);
+    }
+
     // Generate the tiles for this row
     generateTiles = (posY, count) => {
         // Array that holds the tiles for this row
@@ -24,7 +28,11 @@ export default class TileRowComponent extends Component {
             const index = (posY * count) + i;
             // Generate the tile for this X index
             tiles.push(
-                <TileComponent key={index} posY={posY} posX={i} index={index} />
+                <TileComponent
+                    key={index}
+                    posY={posY} posX={i}
+                    onClick={() => this.click(index)}
+                    index={index} />
             )
         }
         // Set the tiles to the state

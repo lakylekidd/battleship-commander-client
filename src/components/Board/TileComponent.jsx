@@ -4,8 +4,11 @@ import "./TileComponent.css";
 export default class TileComponent extends Component {
     render() {
         return (
-            <div className="tile">
-                x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
+            <div onClick={this.props.onClick} className="tile">
+                <span className="label">
+                    x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
+                </span>
+
             </div>
         )
     }
