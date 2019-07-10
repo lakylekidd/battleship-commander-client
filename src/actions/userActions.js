@@ -2,6 +2,8 @@ import request from 'superagent'
 
 export const SET_USER = 'SET_USER'
 export const CREATE_GAME = 'CREATE_GAME'
+export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
+
 
 const baseUrl = process.env.API_URL || 'http://localhost:5000'
 
@@ -20,7 +22,7 @@ const setUser = (user, token) => ({
 export const addNewUser = (user) => (dispatch) => {
   request
     .post(`${baseUrl}/users/login`)
-    .send({username: user})
+    .send({ username: user })
     .then(response => {
       const text = JSON.parse(response.text)
       dispatch(setUser(user, text.jwt))
@@ -34,30 +36,55 @@ const setGame = (game) => ({
 })
 
 /**
- * 
+ * Function that creates a new game and retrieves the game ID
  * @param {String} user The user Name
  * @param {String} token The Token to log in.
  */
 export const createNewGame = (user, token) => (dispatch) => {
-  console.log('CREATE new GAME', user)
-
+  // Initiate the request
   request
     .post(`${baseUrl}/games`)
-    .set({'Authorization': 'Bearer ' + token})
-    .send({user})
+    .set({ 'Authorization': 'Bearer ' + token })
+    .send({ user })
     .then(response => {
-      const game = JSON.parse(response.text)
-      console.log('Res from Creat /games', game)
 
-      request
-        .get(`${baseUrl}/games/${game.gameId}/stream`)
-        .set({'Authorization': 'Bearer ' + token})
-        .then( games => {
-          console.log('Game from stream', games)
-          //Add our game created to the store.         
-          // dispatch(setGame(games.body.games[games.body.total - 1]))
-        })
+
+
+      // Check if response status is 201
+
+      // Retrieve the new game ID
+      const { gameId } = JSON.parse(response.text);
+
+      console.log("Game Created ", gameId)
+
+      // Define request headers
+      const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+
+      // New game ID is used to connect to the stream
+      // Initialize connection to the game stream.
+      // Initialize the stream using the game id provided
+      const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
+      gameStream.onmessage = result => {
+        // Retrieve the data from the event
+        // In this case the data is the game object
+        // returned from the server. 
+        const data = JSON.parse(result.data);
+
+        dispatch(onGameEvent(data));
+
+
+      };
     })
     .catch(console.error)
+}
+
+// Action creator that gets called each time there is an update
+// on the game object on the server.
+const onGameEvent = (currentGameObject) => {
+  // Return the event
+  return {
+    type: GAME_DATA_RECEIVED,
+    payload: currentGameObject
+  }
 }
 
