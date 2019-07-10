@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import {createNewGame} from '../actions/userActions'
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom'
-import { browserHistory } from 'react-router'
-
 
 class CreateJoinContainer extends Component {
   state = {
@@ -18,15 +15,23 @@ class CreateJoinContainer extends Component {
   }
 
   joinGame = () => {
+    console.log('Join Game')
 
+    //dispatchs an action that gets all the available games. 
+    
   }
 
   render() {
+    if (this.props.currentGame) {
+      console.log('history', this.props)
+      // this.props.history.push(`/games/${this.props.currentGame}`)
+    }
+
     return (
       <div>
-        
         <button onClick={this.createGame}>New Game</button>
-        <button>Join Game</button>
+
+        <button onClick={this.joinGame}>Join Game</button>
       </div>
     )
   }
@@ -34,7 +39,8 @@ class CreateJoinContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentGame: state.currentGame
   }
 }
 
