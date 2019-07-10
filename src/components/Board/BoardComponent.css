@@ -1,11 +1,83 @@
 div.board {
+
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     padding: 10px;
-    background-color: rgb(180, 193, 253);
+    background-color: rgb(233, 177, 177);
     width: 800px;
     height: 800px;
     margin: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    transform: perspective(1000px) rotateX(45deg) translateZ(-300px);
+    transform: 
+        perspective(900px) 
+        rotateX(45deg) 
+        translateY(-100px) 
+        translateZ(-200px);
 }
+div.board-front {
+    height: 50px;
+    background-color: rgb(230, 148, 148);
+    margin: 50px;
+    padding: 10px;
+    width: 800px;
+    transform: 
+        perspective(900px) 
+        translateY(-57px) 
+        translateZ(77px);
+}
+div.board.current {
+    background-color: rgb(177, 233, 180);
+}
+div.board.opponent {
+    background-color: rgb(177, 233, 180);
+}
+
+
+/* https://dev.to/mehraas/css-3d-cube--4lmh */
+/* 
+div.board-front {
+    width:300px;
+    height:300px;
+    perspective:700px;
+    -webkit-perspective:700px;
+    margin:100px auto;
+}
+div.board-front > .cube {
+    position:relative;
+    width:150px;
+    height:150px;
+    transform-style:preserve-3d;
+    transform:rotateY(35deg) rotatex(-38deg);
+}
+div.board-front > .cube div{
+    position:absolute;
+    width:150px;
+    height:150px;
+    background:rgba(0,0,0,0.1);
+  }
+  div.board-front > .cube div:nth-child(1){
+    transform:translateZ(75px);
+    background:#237A57;
+  }
+  div.board-front >.cube div:nth-child(2){
+    transform: rotateX(180deg) translateZ(75px);
+    background:#005AA7;
+  }
+  div.board-front >.cube div:nth-child(3){
+    transform: rotateY(-90deg) translateZ(75px);
+    background:#DA4453;
+  }
+  div.board-front >.cube div:nth-child(4){
+    transform:rotateY(90deg) translateZ(75px);
+    background:#a8c0ff;
+  }
+  div.board-front >.cube div:nth-child(5){
+    transform: rotateX(90deg) translateZ(75px);
+    background:#fc4a1a;
+  }
+  div.board-front >.cube div:nth-child(6){
+    transform:rotateX(-90deg) translateZ(75px);
+    background:#f7b733;
+  } */

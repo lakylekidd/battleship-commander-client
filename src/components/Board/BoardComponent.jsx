@@ -35,11 +35,16 @@ class BoardComponent extends Component {
 
     render() {
         return (
-            <div className="board">
-                {
-                    this.state.tileRows.length > 0 &&
-                    this.state.tileRows
-                }
+            <div>
+                <div className="board">
+                    {
+                        this.state.tileRows.length > 0 &&
+                        this.state.tileRows
+                    }
+                </div>
+                <div className="board-front">
+
+                </div>
             </div>
         )
     }
