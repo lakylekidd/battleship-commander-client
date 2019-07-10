@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {createNewGame} from '../actions/userActions'
+import {createNewGame, getAvailableGames} from '../actions/userActions'
 import { connect } from 'react-redux';
 
 class CreateJoinContainer extends Component {
@@ -12,13 +12,16 @@ class CreateJoinContainer extends Component {
     console.log('store', name, token)
 
     this.props.createNewGame(name, token)
+
   }
 
   joinGame = () => {
     console.log('Join Game')
+    const { name, token } = this.props.currentUser
 
     //dispatchs an action that gets all the available games. 
-    
+    this.props.getAvailableGames(name, token)
+
   }
 
   render() {
@@ -44,4 +47,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createNewGame })(CreateJoinContainer)
+export default connect(mapStateToProps, { createNewGame, getAvailableGames })(CreateJoinContainer)

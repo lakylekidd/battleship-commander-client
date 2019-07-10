@@ -30,11 +30,6 @@ export const addNewUser = (user) => (dispatch) => {
     .catch(console.error)
 }
 
-const setGame = (game) => ({
-  type: CREATE_GAME,
-  payload: game
-})
-
 /**
  * Function that creates a new game and retrieves the game ID
  * @param {String} user The user Name
@@ -47,8 +42,6 @@ export const createNewGame = (user, token) => (dispatch) => {
     .set({ 'Authorization': 'Bearer ' + token })
     .send({ user })
     .then(response => {
-
-
 
       // Check if response status is 201
 
@@ -86,5 +79,26 @@ const onGameEvent = (currentGameObject) => {
     type: GAME_DATA_RECEIVED,
     payload: currentGameObject
   }
+}
+
+export const ACTIVE_GAMES = 'ACTIVE_GAMES'
+
+const addActiveGames = (games) => {
+  return {
+    type: ACTIVE_GAMES,
+    payload: games
+  }
+}
+
+export const getAvailableGames = (user, token) => (dispatch) => {
+  request
+    .get(`${baseUrl}/games`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .then(games => {
+      console.log('GAMES!!', games.body)
+      
+      dispatch(addActiveGames(games.body.games))
+    })
+    .catch(console.error)
 }
 
