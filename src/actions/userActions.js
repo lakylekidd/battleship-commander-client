@@ -115,7 +115,18 @@ export const getAvailableGames = (token) => (dispatch) => {
  * @param {String} token The user token
  */
 export const connectToGame = (gameId, token) => (dispatch) => {
-  console.log("Connecting to game")
-  connectUserToGame(gameId, token, dispatch)
+  connectUserToGame(gameId, token, dispatch);
+}
 
+export const joinGame = (gameId, token) => (dispatch) => {
+  // Initiate the request
+  request
+    .get(`${baseUrl}/games/${gameId}/join`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .then(response => {
+      // Retrieve the new game ID
+      const { gameId } = JSON.parse(response.text);
+      connectToGame(gameId, token)(dispatch);
+    })
+    .catch(console.error)
 }

@@ -9,22 +9,14 @@ class CreateJoinContainer extends Component {
   }
 
   createGame = () => {
-    const { name, token } = this.props.currentUser
-    console.log('store', name, token)
-
+    const { name, token } = this.props.currentUser;
     this.props.createNewGame(name, token)
-
   }
 
   joinGame = () => {
-    console.log('Join Game')
-
-
-    const { name, token } = this.props.currentUser
-
+    const { token } = this.props.currentUser
     //dispatchs an action that gets all the available games. 
-    this.props.getAvailableGames(name, token)
-
+    this.props.getAvailableGames(token);
     this.setState({ displayGames: true })
 
   }
