@@ -95,8 +95,11 @@ export const getAvailableGames = (user, token) => (dispatch) => {
     .get(`${baseUrl}/games`)
     .set({ 'Authorization': 'Bearer ' + token })
     .then(games => {
-      console.log('GAMES!!', games.body)
-      
+      //Sort the games by Id
+      games.body.games.sort(function(a, b) { 
+        return a.id - b.id  ||  a.name.localeCompare(b.name);
+      });
+
       dispatch(addActiveGames(games.body.games))
     })
     .catch(console.error)

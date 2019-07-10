@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {createNewGame, getAvailableGames} from '../actions/userActions'
 import { connect } from 'react-redux';
+import GamesListContainer from './GamesListContainer'
 
 class CreateJoinContainer extends Component {
   state = {
-
+    displayGames: false
   }
 
   createGame = () => {
@@ -17,10 +18,14 @@ class CreateJoinContainer extends Component {
 
   joinGame = () => {
     console.log('Join Game')
+
+    
     const { name, token } = this.props.currentUser
 
     //dispatchs an action that gets all the available games. 
     this.props.getAvailableGames(name, token)
+
+    this.setState({displayGames: true})
 
   }
 
@@ -35,7 +40,10 @@ class CreateJoinContainer extends Component {
         <button onClick={this.createGame}>New Game</button>
 
         <button onClick={this.joinGame}>Join Game</button>
+
+        { this.state.displayGames && <GamesListContainer />}
       </div>
+
     )
   }
 }
@@ -43,7 +51,8 @@ class CreateJoinContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
-    currentGame: state.currentGame
+    currentGame: state.currentGame,
+    activeGames: state.activeGames
   }
 }
 
