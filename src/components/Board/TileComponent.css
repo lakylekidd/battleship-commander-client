@@ -1,0 +1,8 @@
+div.tile {
+    flex: 1;
+    background-image: url('./../../media/giphy1.gif');
+    text-align: left;
+    color: white;
+    font-size: 9px;
+    margin: 1px;
+}

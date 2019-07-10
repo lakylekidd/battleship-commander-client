@@ -1,0 +1,10 @@
+div.board {
+    padding: 10px;
+    background-color: rgb(180, 193, 253);
+    width: 800px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+}
