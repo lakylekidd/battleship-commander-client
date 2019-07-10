@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { connectToGame } from '../actions/userActions'
+
 import './css/GamesList.css'
 
 
@@ -7,6 +9,11 @@ class GamesListContainer extends Component {
 
   joinGame = (id) => {
     console.log(`Joining the game ${id}`)
+    const { name, token } = this.props.currentUser
+
+    //dispatch an action that connects the user to the server sent events.
+
+    this.props.connectToGame(id, name, token)
   }
 
   render() {
@@ -42,8 +49,9 @@ class GamesListContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    currentUser: state.currentUser,
     activeGames: state.activeGames
   }
 }
 
-export default connect(mapStateToProps, null)(GamesListContainer)
+export default connect(mapStateToProps, { connectToGame })(GamesListContainer)

@@ -50,23 +50,8 @@ export const createNewGame = (user, token) => (dispatch) => {
 
       console.log("Game Created ", gameId)
 
-      // Define request headers
-      const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+      connectToGame(gameId, user, token, dispatch)
 
-      // New game ID is used to connect to the stream
-      // Initialize connection to the game stream.
-      // Initialize the stream using the game id provided
-      const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
-      gameStream.onmessage = result => {
-        // Retrieve the data from the event
-        // In this case the data is the game object
-        // returned from the server. 
-        const data = JSON.parse(result.data);
-
-        dispatch(onGameEvent(data));
-
-
-      };
     })
     .catch(console.error)
 }
@@ -103,5 +88,31 @@ export const getAvailableGames = (user, token) => (dispatch) => {
       dispatch(addActiveGames(games.body.games))
     })
     .catch(console.error)
+}
+
+export const connectToGame = (gameId, user, token) => (dispatch) => {
+
+  connectUserToGame(gameId, user, token, dispatch)
+
+}
+
+const connectUserToGame = (gameId, user, token, dispatch) => {
+     // Define request headers
+     const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+
+     // New game ID is used to connect to the stream
+     // Initialize connection to the game stream.
+     // Initialize the stream using the game id provided
+     const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
+  
+     gameStream.onmessage = result => {
+      // Retrieve the data from the event
+      // In this case the data is the game object
+      // returned from the server. 
+      const data = JSON.parse(result.data);
+  
+      //Add the game selected to the currentGame State
+      dispatch(onGameEvent(data));
+     }
 }
 
