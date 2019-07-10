@@ -1,19 +1,53 @@
-import request from 'superagent'
+import request from 'superagent';
 
+// Define the base URL of the API
+const baseUrl = process.env.API_URL || 'http://localhost:5000';
+
+// Define Action Types
 export const SET_USER = 'SET_USER'
 export const CREATE_GAME = 'CREATE_GAME'
 export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
+export const ACTIVE_GAMES = 'ACTIVE_GAMES';
 
-
-const baseUrl = process.env.API_URL || 'http://localhost:5000'
-
+// Define local actions
+// Action creator that gets called each time a user logs in
 const setUser = (user, token) => ({
   type: SET_USER,
   payload: {
     user,
     token
   }
-})
+});
+// Action creator that gets called each time there is an update
+// on the game object on the server.
+const onGameEvent = (currentGameObject) => ({
+  type: GAME_DATA_RECEIVED,
+  payload: currentGameObject
+});
+// Action creator that sets the active games
+const addActiveGames = (games) => ({
+  type: ACTIVE_GAMES,
+  payload: games
+});
+// Action creator that connects the user to an active game
+// And dispatches the on game event every time an update
+// is dispatched from the server
+const connectUserToGame = (gameId, token, dispatch) => {
+  // Define request headers
+  const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+  // New game ID is used to connect to the stream
+  // Initialize connection to the game stream.
+  // Initialize the stream using the game id provided
+  const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
+  gameStream.onmessage = result => {
+    // Retrieve the data from the event
+    // In this case the data is the game object
+    // returned from the server. 
+    const data = JSON.parse(result.data);
+    //Add the game selected to the currentGame State
+    dispatch(onGameEvent(data));
+  }
+}
 
 /**
  * Creates or logs in the User
@@ -50,32 +84,17 @@ export const createNewGame = (user, token) => (dispatch) => {
 
       console.log("Game Created ", gameId)
 
-      connectToGame(gameId, user, token)(dispatch);
+      connectToGame(gameId, token)(dispatch);
 
     })
     .catch(console.error)
 }
 
-// Action creator that gets called each time there is an update
-// on the game object on the server.
-const onGameEvent = (currentGameObject) => {
-  // Return the event
-  return {
-    type: GAME_DATA_RECEIVED,
-    payload: currentGameObject
-  }
-}
-
-export const ACTIVE_GAMES = 'ACTIVE_GAMES'
-
-const addActiveGames = (games) => {
-  return {
-    type: ACTIVE_GAMES,
-    payload: games
-  }
-}
-
-export const getAvailableGames = (user, token) => (dispatch) => {
+/**
+ * Function that gets a list of available games from the server
+ * @param {String} token 
+ */
+export const getAvailableGames = (token) => (dispatch) => {
   request
     .get(`${baseUrl}/games`)
     .set({ 'Authorization': 'Bearer ' + token })
@@ -90,29 +109,13 @@ export const getAvailableGames = (user, token) => (dispatch) => {
     .catch(console.error)
 }
 
-export const connectToGame = (gameId, user, token) => (dispatch) => {
+/**
+ * Function that connects a user to a game stream
+ * @param {String} gameId The game ID
+ * @param {String} token The user token
+ */
+export const connectToGame = (gameId, token) => (dispatch) => {
   console.log("Connecting to game")
-  connectUserToGame(gameId, user, token, dispatch)
+  connectUserToGame(gameId, token, dispatch)
 
 }
-
-const connectUserToGame = (gameId, user, token, dispatch) => {
-  // Define request headers
-  const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
-  console.log("CONNECTING")
-  // New game ID is used to connect to the stream
-  // Initialize connection to the game stream.
-  // Initialize the stream using the game id provided
-  const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
-
-  gameStream.onmessage = result => {
-    // Retrieve the data from the event
-    // In this case the data is the game object
-    // returned from the server. 
-    const data = JSON.parse(result.data);
-
-    //Add the game selected to the currentGame State
-    dispatch(onGameEvent(data));
-  }
-}
-
