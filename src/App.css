@@ -1,3 +1,6 @@
 .App {
   text-align: center
 }
+div.board-container {
+  display: flex;
+}

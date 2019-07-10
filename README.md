@@ -31,11 +31,13 @@ For this project we will be using the following technologies:
 
 ## Website Routes
 @root : http://mywebsite.com/
+* POST @root/users/login : returns a token
 * GET @root/games : a list of available games to join
 * POST @root/games : creates a new game
 * POST @root/games/:id : accepts acctions from players
 * @root/games/:id/stream : the stream of the selected game.
 * @root/games/:id/join : user joins the game.
+* POST @root/games/:id/ready/:boardId : specifies that the current board is ready
 
 ## File Structure
 For the client we will be following the conventional React Redux file strucutre.

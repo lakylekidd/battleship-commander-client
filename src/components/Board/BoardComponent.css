@@ -1,0 +1,41 @@
+div.board {
+    width: 1000px;    
+    height: 1000px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 10px;      
+    margin: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;    
+    transform: 
+        perspective(900px) 
+        rotateX(45deg) 
+        translateY(-100px) 
+        translateZ(-200px);
+}
+div.board.opponent {
+    background-color: rgb(230, 148, 148);  
+}
+div.board.own {
+    background-color: rgb(177, 233, 180);    
+}
+
+
+div.board-front {
+    height: 50px;
+    margin: 50px;
+    padding: 10px;
+    width: 900px;
+    transform: 
+        perspective(900px) 
+        translateY(-57px) 
+        translateZ(77px);
+}
+
+div.board-front.opponent {
+    background-color: rgb(230, 148, 148);
+}
+div.board-front.own {
+    background-color: rgb(141, 230, 145);
+}

@@ -1,0 +1,35 @@
+div.tile {
+    flex: 1 1;
+    background-image: url('./../../media/source3.gif');
+    text-align: left;
+    color: white;
+    font-size: 9px;
+    padding: 5px;
+    margin: 1px;
+    transition: 0.2s linear;
+}
+div.tile > span {
+    opacity: 0;
+    background-color: rgba(36, 36, 36, 0.274);
+    transition: 0.05s linear;
+}
+div.tile:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px rgb(51, 55, 97);    
+}
+div.tile:active {
+    transform: scale(1);
+    border: 5px solid red;
+    box-shadow: 0px 0px 35px rgb(41, 52, 151);
+}
+div.tile:hover > span {
+    display: inline-block; 
+    opacity: 1;
+    transition: 0.2s linear;
+}
+div.tile:hover > span:hover {
+    display: inline-block; 
+    cursor: pointer;
+    transform:  scale(1.4) translateX(10px) translateY(5px);
+    background-color: rgba(36, 36, 36, 0.561);
+}
