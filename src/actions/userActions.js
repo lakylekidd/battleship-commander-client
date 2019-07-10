@@ -50,7 +50,7 @@ export const createNewGame = (user, token) => (dispatch) => {
 
       console.log("Game Created ", gameId)
 
-      connectToGame(gameId, user, token, dispatch)
+      connectToGame(gameId, user, token)(dispatch);
 
     })
     .catch(console.error)
@@ -81,8 +81,8 @@ export const getAvailableGames = (user, token) => (dispatch) => {
     .set({ 'Authorization': 'Bearer ' + token })
     .then(games => {
       //Sort the games by Id
-      games.body.games.sort(function(a, b) { 
-        return a.id - b.id  ||  a.name.localeCompare(b.name);
+      games.body.games.sort(function (a, b) {
+        return a.id - b.id || a.name.localeCompare(b.name);
       });
 
       dispatch(addActiveGames(games.body.games))
@@ -91,28 +91,28 @@ export const getAvailableGames = (user, token) => (dispatch) => {
 }
 
 export const connectToGame = (gameId, user, token) => (dispatch) => {
-
+  console.log("Connecting to game")
   connectUserToGame(gameId, user, token, dispatch)
 
 }
 
 const connectUserToGame = (gameId, user, token, dispatch) => {
-     // Define request headers
-     const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+  // Define request headers
+  const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
+  console.log("CONNECTING")
+  // New game ID is used to connect to the stream
+  // Initialize connection to the game stream.
+  // Initialize the stream using the game id provided
+  const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
 
-     // New game ID is used to connect to the stream
-     // Initialize connection to the game stream.
-     // Initialize the stream using the game id provided
-     const gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
-  
-     gameStream.onmessage = result => {
-      // Retrieve the data from the event
-      // In this case the data is the game object
-      // returned from the server. 
-      const data = JSON.parse(result.data);
-  
-      //Add the game selected to the currentGame State
-      dispatch(onGameEvent(data));
-     }
+  gameStream.onmessage = result => {
+    // Retrieve the data from the event
+    // In this case the data is the game object
+    // returned from the server. 
+    const data = JSON.parse(result.data);
+
+    //Add the game selected to the currentGame State
+    dispatch(onGameEvent(data));
+  }
 }
 

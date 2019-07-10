@@ -7,9 +7,13 @@ class Main extends Component {
   render() {
     console.log('redux store', this.props.currentUser)
     return (
-      <div>
-        <Login />
-        { this.props.currentUser && <CreateJoin />}
+      <div className="main">
+        {
+          this.props.currentUser === null
+            ? <Login />
+            :
+            this.props.currentGame ? <div>GAME ON</div> : <CreateJoin />
+        }
       </div>
     )
   }
@@ -17,7 +21,8 @@ class Main extends Component {
 
 const mapDispatchToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    currentGame: state.currentGame
   }
 }
 
