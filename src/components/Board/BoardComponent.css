@@ -3,8 +3,9 @@ div.board {
     background-color: rgb(180, 193, 253);
     width: 800px;
     height: 800px;
+    margin: 50px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    
+    transform: perspective(1000px) rotateX(45deg) translateZ(-300px);
 }
