@@ -64,7 +64,7 @@ class GameAreaComponent extends Component {
     // Action creator that connects the user to an active game
     // And dispatches the on game event every time an update
     // is dispatched from the server
-    connectUserToGame = (gameId, token, dispatch) => {
+    connectUserToGame = (gameId, token) => {
         // Check if game id is valid
         if (!gameId || gameId === 0) return;
 
@@ -93,18 +93,17 @@ class GameAreaComponent extends Component {
     }
 
     componentDidMount() {
-        const id = 14;
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoibGFreWxla2lkZCIsImlhdCI6MTU2MjgzNzE0OCwiZXhwIjoxNTYyODQ0MzQ4fQ.S3Iy4kI1kBjKgX38YBD7V1eOYXedVaDSeU58ucCv3Kw';
+        const id = this.props.currentUser.userId;
+        const token = this.props.currentUser.token;
         this.connectUserToGame(id, token);
     }
 
     componentWillUnmount() {
         // Retrieve needed variables
-        const gameId = 14;
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoibGFreWxla2lkZCIsImlhdCI6MTU2MjgzNzE0OCwiZXhwIjoxNTYyODQ0MzQ4fQ.S3Iy4kI1kBjKgX38YBD7V1eOYXedVaDSeU58ucCv3Kw';
-        // Before component unmounts
+        const id = this.props.currentUser.userId;
+        const token = this.props.currentUser.token;        // Before component unmounts
         // exit user from current game
-        this.props.exitGame(gameId, token);
+        this.props.exitGame(id, token);
     }
 
     render() {
