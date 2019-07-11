@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Login from './LoginContainer'
 import CreateJoin from './CreateJoinContainer'
+import GameAreaComponent from './GameArea/GameAreaComponent';
 
 class Main extends Component {
   render() {
@@ -12,7 +13,7 @@ class Main extends Component {
           this.props.currentUser === null
             ? <Login />
             :
-            this.props.currentGame ? <div>GAME ON</div> : <CreateJoin />
+            this.props.currentGame ? <GameAreaComponent gameId={this.props.currentGame.id} /> : <CreateJoin />
         }
       </div>
     )

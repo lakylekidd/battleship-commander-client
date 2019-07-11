@@ -9,6 +9,7 @@ export const CREATE_GAME = 'CREATE_GAME'
 export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
 export const EXIT_GAME = 'EXIT_GAME';
+export const SET_GAME_ID = 'SET_GAME_ID';
 
 // Define local actions
 // Action creator that gets called each time a user logs in
@@ -21,7 +22,7 @@ const setUser = (user, token) => ({
 });
 // Action creator that gets called each time there is an update
 // on the game object on the server.
-const onGameEvent = (currentGameObject) => ({
+export const onGameEvent = (currentGameObject) => ({
   type: GAME_DATA_RECEIVED,
   payload: currentGameObject
 });
@@ -36,6 +37,7 @@ const addActiveGames = (games) => ({
 const connectUserToGame = (gameId, token, dispatch) => {
   // Check if game id is valid
   if (!gameId || gameId === 0) return;
+
   // Define request headers
   const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
   // New game ID is used to connect to the stream
@@ -50,6 +52,18 @@ const connectUserToGame = (gameId, token, dispatch) => {
     //Add the game selected to the currentGame State
     dispatch(onGameEvent(data));
   }
+}
+// Action creator that at this point only sets the game ID
+// to be later retrieved from the game area component
+const setCurrentGameId = (gameId) => (dispatch) => ({
+  type: SET_GAME_ID,
+  payload: {
+    id: gameId
+  }
+})
+
+const disconnectUserFromGame = (gameId) => (dispatch) => {
+
 }
 
 /**
@@ -79,15 +93,13 @@ export const createNewGame = (user, token) => (dispatch) => {
     .set({ 'Authorization': 'Bearer ' + token })
     .send({ user })
     .then(response => {
-
-      // Check if response status is 201
-
       // Retrieve the new game ID
       const { gameId } = JSON.parse(response.text);
 
-      console.log("Game Created ", gameId)
-
-      connectToGame(gameId, token)(dispatch);
+      // Do not connect to game from here
+      // connectToGame(gameId, token)(dispatch);
+      // Instead set game state
+      setCurrentGameId(gameId)(dispatch);
 
     })
     .catch(console.error)
@@ -131,13 +143,27 @@ export const joinGame = (gameId, token) => (dispatch) => {
     .get(`${baseUrl}/games/${gameId}/join`)
     .set({ 'Authorization': 'Bearer ' + token })
     .then(response => {
-      // Retrieve the new game ID
-      const { gameId } = JSON.parse(response.text);
-      connectToGame(gameId, token)(dispatch);
+      // Do not connect to game from here
+      // connectToGame(gameId, token)(dispatch);
+      // Instead set game state
+      setCurrentGameId(gameId)(dispatch);
     })
     .catch(console.error)
 }
 
-export const exitGame = (gameId, token) => (dispath) => {
-
+/**
+ * Exits the current user from the game
+ * @param {String} gameId The game id
+ * @param {String} token The token
+ */
+export const exitGame = (gameId, token) => (dispatch) => {
+  // Initiate the request
+  request
+    .get(`${baseUrl}/games/${gameId}/exit`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .then(response => {
+      // Disconnect from game
+      disconnectUserFromGame(gameId)(dispatch);
+    })
+    .catch(console.error)
 }
