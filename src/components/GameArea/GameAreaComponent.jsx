@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
-import GameFeedback from './GameFeedbackComponent'
+import GameFeedback from './GameFeedbackComponent';
+import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
 
 import "./GameAreaComponent.css";
 import UserStatusComponent from './UserStatusComponent';
@@ -65,6 +66,9 @@ class GameAreaComponent extends Component {
     // And dispatches the on game event every time an update
     // is dispatched from the server
     connectUserToGame = (gameId, token) => {
+
+        console.log("Connecting to stream: ", gameId, token)
+
         // Check if game id is valid
         if (!gameId || gameId === 0) return;
 
@@ -73,7 +77,7 @@ class GameAreaComponent extends Component {
         // New game ID is used to connect to the stream
         // Initialize connection to the game stream.
         // Initialize the stream using the game id provided
-        this.gameStream = new EventSource(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
+        this.gameStream = new EventSourcePolyfill(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
         this.gameStream.onmessage = result => {
             // Retrieve the data from the event
             // In this case the data is the game object
@@ -93,14 +97,14 @@ class GameAreaComponent extends Component {
     }
 
     componentDidMount() {
-        const id = this.props.currentUser.userId;
+        const id = this.props.currentGame.id;
         const token = this.props.currentUser.token;
         this.connectUserToGame(id, token);
     }
 
     componentWillUnmount() {
         // Retrieve needed variables
-        const id = this.props.currentUser.userId;
+        const id = this.props.currentGame.id;
         const token = this.props.currentUser.token;        // Before component unmounts
         // exit user from current game
         this.props.exitGame(id, token);
@@ -136,7 +140,7 @@ class GameAreaComponent extends Component {
 
 // Map state to props
 const mapStateToProps = (reduxState) => ({
-    game: reduxState.currentGame,
+    currentGame: reduxState.currentGame,
     currentUser: reduxState.currentUser,
     sessionState: reduxState.sessionState,
     scores: reduxState.scores
