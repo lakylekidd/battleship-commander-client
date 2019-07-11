@@ -31,6 +31,12 @@ class GameAreaComponent extends Component {
             //Add the game selected to the currentGame State
             this.props.onGameEvent(data);
         }
+
+        // Add event listener 
+        window.addEventListener("beforeunload", (ev) => {
+            ev.preventDefault();
+            this.gameStream.close();
+        });
     }
 
     componentDidMount() {
