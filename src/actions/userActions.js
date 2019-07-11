@@ -117,7 +117,11 @@ export const getAvailableGames = (token) => (dispatch) => {
 export const connectToGame = (gameId, token) => (dispatch) => {
   connectUserToGame(gameId, token, dispatch);
 }
-
+/**
+ * Allows a user to join a game.
+ * @param {String} gameId The game id the user wants to join
+ * @param {String} token The token of the user
+ */
 export const joinGame = (gameId, token) => (dispatch) => {
   // Initiate the request
   request
