@@ -8,6 +8,7 @@ export const SET_USER = 'SET_USER'
 export const CREATE_GAME = 'CREATE_GAME'
 export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
+export const EXIT_GAME = 'EXIT_GAME';
 
 // Define local actions
 // Action creator that gets called each time a user logs in
@@ -33,6 +34,8 @@ const addActiveGames = (games) => ({
 // And dispatches the on game event every time an update
 // is dispatched from the server
 const connectUserToGame = (gameId, token, dispatch) => {
+  // Check if game id is valid
+  if (!gameId || gameId === 0) return;
   // Define request headers
   const eventSourceInitDict = { headers: { 'Authorization': 'Bearer ' + token } };
   // New game ID is used to connect to the stream
@@ -133,4 +136,8 @@ export const joinGame = (gameId, token) => (dispatch) => {
       connectToGame(gameId, token)(dispatch);
     })
     .catch(console.error)
+}
+
+export const exitGame = (gameId, token) => (dispath) => {
+
 }
