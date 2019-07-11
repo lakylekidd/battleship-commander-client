@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { setNotification } from './notificationActions';
 
 // Define the base URL of the API
 const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
@@ -81,7 +82,11 @@ export const addNewUser = (user) => (dispatch) => {
       const text = JSON.parse(response.text)
       dispatch(setUser(user, text.jwt, text.userId))
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      dispatch(setNotification(message)(dispatch));
+    })
 }
 
 /**

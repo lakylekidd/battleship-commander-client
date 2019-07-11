@@ -13,7 +13,17 @@ div.notification {
     font-weight: bold;
     right: 0;
     transition: 0.2s linear;
+    padding: 10px;
 }
 div.notification.show {
+    opacity: .7;
+}
+div.notification.show:hover {
     opacity: 1;
+    cursor: pointer;
+}
+div.notification.show:active {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(0.9)
 }

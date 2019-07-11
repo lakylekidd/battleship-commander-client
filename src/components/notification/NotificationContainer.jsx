@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import "./NotificationContainer.css";
 import { connect } from 'react-redux';
+import { removeNotification } from './../../actions/notificationActions';
 
 class NotificationContainer extends Component {
+
+    // Close the notification
+    close = (e) => {
+        // Remove the class
+        e.target.classList.remove('show');
+        // Set timeout
+        setTimeout(() => {
+            this.props.removeNotification();
+        }, 2000);
+    }
+
     render() {
         return (
-            <div className={`notification ${this.props.notification && 'show'}`}>
+            <div
+                className={`notification ${this.props.notification && 'show'}`}
+                onClick={this.close}>
                 <div>{this.props.notification}</div>
             </div>
         )
@@ -18,4 +32,4 @@ const mapStateToProps = (reduxState) => ({
 })
 
 // Export connected component
-export default connect(mapStateToProps)(NotificationContainer);
+export default connect(mapStateToProps, { removeNotification })(NotificationContainer);

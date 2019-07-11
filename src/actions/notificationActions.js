@@ -1,7 +1,7 @@
 export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 export const REMOVE_NOTIFICATION = 'REMOVE_NOTIFICATION';
 
-const removeNotification = () => ({
+export const removeNotification = () => ({
     type: REMOVE_NOTIFICATION
 });
 
