@@ -21,8 +21,8 @@ class GameAreaComponent extends Component {
         if (game.boards.length <= 1) return;
 
         // Retrieve my board and opponents board
-        const myBoard = game.boards.find(board => board.userId === 1) // this.props.currentUser.userId);
-        const opponentBoard = game.boards.find(board => board.userId !== 1) //this.props.currentUser.userId);
+        const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
+        const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
 
         // Check how many failed targets each board has
         const myFailedTargets = myBoard.tiles
@@ -127,7 +127,7 @@ class GameAreaComponent extends Component {
                     <GameFeedback />
                 </div>
                 <div className="board-div">
-                { this.props.sessionState === 2 && <BoardComponent />}
+                    {this.props.sessionState === 2 && <BoardComponent />}
 
                 </div>
             </div>
