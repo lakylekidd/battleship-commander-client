@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  padding: 5px;
+  min-height: 700px;
+  display: flex;
+  justify-content: center;
 }
 div.board-container {
   display: flex;

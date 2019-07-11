@@ -16,26 +16,27 @@ class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({submitted: true})
+    this.setState({ submitted: true })
 
     this.props.addNewUser(this.state.userName)
   }
 
   render() {
     return (
-      <div className="loginContainer">
-        { this.state.submitted 
+      <div className="login">
+        {this.state.submitted
           ? <h2>Welcome {this.state.userName}</h2>
           : <form onSubmit={this.handleSubmit}>
-              <h2> Select your User Name: </h2>      
-              <input 
-                type="text" 
-                name="login" 
-                value={this.state.userName}
-                onChange={this.handleChange}
-              />
-              <button>Submit</button>
-            </form>
+            <h2> Select your User Name: </h2>
+            <input
+              type="text"
+              name="login"
+              value={this.state.userName}
+              onChange={this.handleChange}
+            />
+            <br />
+            <button>Submit</button>
+          </form>
         }
       </div>
     )
