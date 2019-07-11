@@ -34,6 +34,8 @@ class CreateJoinContainer extends Component {
         <button onClick={this.createGame}>New Game</button>
         <button onClick={this.joinGame}>Join Game</button>
         <br />
+        <button className="exit" onClick={this.joinGame}>Exit</button>
+        <br />
         {
           this.state.displayGames && <GamesListContainer />
         }
