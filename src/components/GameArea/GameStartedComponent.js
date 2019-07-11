@@ -7,7 +7,6 @@ class GameStartedComponent extends Component {
     return (
       <div>
         Game Started
-
       </div>
     )
   }

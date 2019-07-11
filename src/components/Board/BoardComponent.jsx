@@ -27,15 +27,15 @@ class BoardComponent extends Component {
     componentDidMount() {
         // Retrieve the required props by calculating the 
         // square root of the total tiles
-        const size = parseInt(Math.sqrt(this.props.board.tiles.length));
+        const tiles = this.props.game.boards[0].tiles;
+        const size = parseInt(Math.sqrt(tiles.length));
         // Generate the tile rows
         this.generateTileRows(size);
     }
 
-
     render() {
         return (
-            <div className={`board ${this.props.own && 'own'} ${!this.props.own && 'opponent'}`}>
+            <div className={`board ${this.props.scores.own && 'own'} ${!this.props.scores.own && 'opponent'}`}>
                 {
                     this.state.tileRows.length > 0 &&
                     this.state.tileRows
@@ -48,9 +48,10 @@ class BoardComponent extends Component {
 // Map state to props
 const mapStateToProps = (reduxStore) => {
     return {
-        game: reduxStore.currentGame
+        game: reduxStore.currentGame,
+        scores: reduxStore.scores
     }
 }
 
 // Export the connected component
-export default connect(mapStateToProps)(BoardComponent);
+export default connect(mapStateToProps, null)(BoardComponent);

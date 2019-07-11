@@ -5,6 +5,7 @@ import GameFeedback from './GameFeedbackComponent'
 
 import "./GameAreaComponent.css";
 import UserStatusComponent from './UserStatusComponent';
+import BoardComponent from '../Board/BoardComponent'
 
 // Define the base URL of the API
 const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
@@ -125,6 +126,10 @@ class GameAreaComponent extends Component {
                 <div className="game-feedback-container">
                     <GameFeedback />
                 </div>
+                <div className="board-div">
+                { this.props.sessionState === 2 && <BoardComponent />}
+
+                </div>
             </div>
         )
     }
@@ -134,6 +139,7 @@ class GameAreaComponent extends Component {
 const mapStateToProps = (reduxState) => ({
     game: reduxState.currentGame,
     currentUser: reduxState.currentUser,
+    sessionState: reduxState.sessionState,
     scores: reduxState.scores
 })
 

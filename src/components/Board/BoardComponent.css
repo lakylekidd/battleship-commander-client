@@ -7,12 +7,12 @@ div.board {
     margin: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;    
+    justify-content: space-evenly;
     transform: 
-        perspective(900px) 
-        rotateX(45deg) 
-        translateY(-100px) 
-        translateZ(-200px);
+        perspective(1000px) 
+        rotateX(20deg) 
+        translateY(-200px) 
+        translateZ(-100px);
 }
 div.board.opponent {
     background-color: rgb(230, 148, 148);  

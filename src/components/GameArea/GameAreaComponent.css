@@ -7,3 +7,13 @@ div.game-area > div.user-status-container > div.game-status {
     font-weight: 100;
     font-size: 23px;
 }
+
+.board-div {
+    /* position: absolute;
+    top: 80%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) */
+    display: flex;
+    justify-content: center;
+}
