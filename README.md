@@ -43,3 +43,8 @@ api
 |config.js  
 |db.js  
 |server.js  
+
+## TODOS
+* Convert exit button to a component and implement exit button throughout the game
+* Change color of game title inside the game component
+* Implement Fire, Game Ready and Ship Placement actions
