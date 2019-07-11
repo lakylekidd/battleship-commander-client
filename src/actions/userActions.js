@@ -11,6 +11,7 @@ export const ACTIVE_GAMES = 'ACTIVE_GAMES';
 export const EXIT_GAME = 'EXIT_GAME';
 export const SET_GAME_ID = 'SET_GAME_ID';
 export const SET_SCORES = 'SET_SCORES';
+export const SET_SHIP = 'SET_SHIP';
 
 // Define local actions
 // Action creator that gets called each time a user logs in
@@ -181,6 +182,9 @@ export const setScores = (score) => ({
   payload: score
 });
 
+/**
+ * Fires on opponent's tile
+ */
 export const fire = (boardId, tileIndex, token) => {
   // Initiate the request
   request
@@ -191,4 +195,11 @@ export const fire = (boardId, tileIndex, token) => {
 
     })
     .catch(console.error)
+}
+/**
+ * Positions a ship on user's tile
+ */
+export const positionShip = (boardId, tileIndex) => {
+  // Position the ship on the server directly
+
 }

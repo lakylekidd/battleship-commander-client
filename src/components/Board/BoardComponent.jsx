@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TileRowComponent from './TileRowComponent';
+import { positionShip } from './../../actions/userActions';
 import "./BoardComponent.css";
 
 class BoardComponent extends Component {
@@ -35,7 +36,7 @@ class BoardComponent extends Component {
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
-
+            this.props.positionShip(this.board.id, index);
         }
     }
 
