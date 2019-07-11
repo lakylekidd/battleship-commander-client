@@ -6,7 +6,6 @@ import GameAreaComponent from './GameArea/GameAreaComponent';
 
 class Main extends Component {
   render() {
-    console.log('redux store', this.props.currentUser)
     return (
       <div className="main">
         {

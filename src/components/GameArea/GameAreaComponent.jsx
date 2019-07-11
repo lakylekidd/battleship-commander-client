@@ -26,7 +26,6 @@ class GameAreaComponent extends Component {
         const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
         const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
 
-        console.log("Start calculating , CHECK BOARDS", myBoard, opponentBoard)
         // Check if boards are here
         if (!myBoard || !opponentBoard) return;
 
@@ -63,7 +62,6 @@ class GameAreaComponent extends Component {
                 accuracy: opponentCorrectTargets * (opponentCorrectTargets + opponentFailedTargets)
             }
         }
-        console.log("Setting the scores: ", scores);
         // Set the scores
         this.props.setScores(scores);
     }
@@ -72,9 +70,6 @@ class GameAreaComponent extends Component {
     // And dispatches the on game event every time an update
     // is dispatched from the server
     connectUserToGame = (gameId, token) => {
-
-        console.log("Connecting to stream: ", gameId, token)
-
         // Check if game id is valid
         if (!gameId || gameId === 0) return;
 
@@ -89,7 +84,6 @@ class GameAreaComponent extends Component {
             // In this case the data is the game object
             // returned from the server. 
             const data = JSON.parse(result.data);
-            console.log("Incoming Data: ", data);
             // Calculate the current score based on the data
             this.calculateScore(data);
             //Add the game selected to the currentGame State
