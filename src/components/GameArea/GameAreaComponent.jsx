@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { connectToGame, exitGame, onGameEvent } from './../../actions/userActions';
+import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
 import GameFeedback from './GameFeedbackComponent'
 
 import "./GameAreaComponent.css";
@@ -12,6 +12,49 @@ const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokua
 class GameAreaComponent extends Component {
 
     gameStream;
+
+    // Functino that calculates the current score based on the 
+    // provided game data.
+    calculateScore = (game) => {
+        // Only calculate scores if both boards are available
+        if (game.boards.length <= 1) return;
+
+        // Retrieve my board and opponents board
+        const myBoard = game.boards.single(board => board.userId === this.props.currentUser.userId);
+        const opponentBoard = game.boards.single(board => board.userId !== this.props.currentUser.userId);
+
+        // Check how many failed targets each board has
+        const myFailedTargets = myBoard.tiles
+            .filter(tile => tile.targeted && tile.occupied === false)
+            .length;
+        const opponentFailedTargets = opponentBoard.tiles
+            .filter(tile => tile.targeted && tile.occupied === false)
+            .length;
+
+        // Check how many correct targets each board has
+        const myCorrectTargets = myBoard.tiles
+            .filter(tile => tile.targeted && tile.occupied)
+            .length;
+        const opponentCorrectTargets = opponentBoard.tiles
+            .filter(tile => tile.targeted && tile.occupied)
+            .length;
+
+        // Construct the score object
+        const scores = {
+            own: {
+                correct: myCorrectTargets,
+                failed: myFailedTargets,
+                accuracy: myCorrectTargets * (myCorrectTargets + myFailedTargets)
+            },
+            opponent: {
+                correcct: opponentCorrectTargets,
+                failed: opponentFailedTargets,
+                accuracy: opponentCorrectTargets * (opponentCorrectTargets + opponentFailedTargets)
+            }
+        }
+        // Set the scores
+        this.props.setScores(scores);
+    }
 
     // Action creator that connects the user to an active game
     // And dispatches the on game event every time an update
@@ -31,6 +74,8 @@ class GameAreaComponent extends Component {
             // In this case the data is the game object
             // returned from the server. 
             const data = JSON.parse(result.data);
+            // Calculate the current score based on the data
+            this.calculateScore(data);
             //Add the game selected to the currentGame State
             this.props.onGameEvent(data);
         }
@@ -82,4 +127,4 @@ const mapStateToProps = (reduxState) => ({
 })
 
 // Export the connected component
-export default connect(mapStateToProps, { connectToGame, exitGame, onGameEvent })(GameAreaComponent);
+export default connect(mapStateToProps, { setScores, connectToGame, exitGame, onGameEvent })(GameAreaComponent);

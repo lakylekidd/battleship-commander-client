@@ -10,14 +10,16 @@ export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
 export const EXIT_GAME = 'EXIT_GAME';
 export const SET_GAME_ID = 'SET_GAME_ID';
+export const SET_SCORES = 'SET_SCORES';
 
 // Define local actions
 // Action creator that gets called each time a user logs in
-const setUser = (user, token) => ({
+const setUser = (user, token, userId) => ({
   type: SET_USER,
   payload: {
     user,
-    token
+    token,
+    userId
   }
 });
 // Action creator that gets called each time there is an update
@@ -76,7 +78,7 @@ export const addNewUser = (user) => (dispatch) => {
     .send({ username: user })
     .then(response => {
       const text = JSON.parse(response.text)
-      dispatch(setUser(user, text.jwt))
+      dispatch(setUser(user, text.jwt, text.userId))
     })
     .catch(console.error)
 }
@@ -170,3 +172,11 @@ export const exitGame = (gameId, token) => (dispatch) => {
     })
     .catch(console.error)
 }
+/**
+ * Sets the current score
+ * @param {Object} score The current score
+ */
+export const setScores = (score) => ({
+  type: SET_SCORES,
+  payload: score
+});

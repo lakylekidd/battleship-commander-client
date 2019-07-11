@@ -3,6 +3,7 @@ div.user-status {
     flex-direction: column;
     position: relative;
     width: 300px;
+    margin-bottom: 20px;
 }
 div.user-status.own {
     align-items: flex-start;
