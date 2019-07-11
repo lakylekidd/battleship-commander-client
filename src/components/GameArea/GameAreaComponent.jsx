@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent } from './../../actions/userActions';
+import GameFeedback from './GameFeedbackComponent'
+
 import "./GameAreaComponent.css";
 
 // Define the base URL of the API
@@ -59,6 +61,9 @@ class GameAreaComponent extends Component {
             <div className="game-area">
                 <div className="user-status-container">
 
+                </div>
+                <div className="game-feedback-container">
+                    <GameFeedback />
                 </div>
             </div>
         )
