@@ -59,8 +59,11 @@ class GameAreaComponent extends Component {
         return (
             <div className="game-area">
                 <div className="user-status-container">
-                    <UserStatusComponent username="lakylekidd" own={true} />
-                    <UserStatusComponent username="pedro" own={false} />
+                    <UserStatusComponent username="lakylekidd" own={true} fails="2" hits="1" />
+                    <div className="game-status">
+                        <h3>Battleship Commander</h3>
+                    </div>
+                    <UserStatusComponent username="pedro" own={false} fails="1" hits="0" />
                 </div>
             </div>
         )

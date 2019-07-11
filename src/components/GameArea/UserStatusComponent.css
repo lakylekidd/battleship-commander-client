@@ -1,13 +1,77 @@
 div.user-status {
+    display: flex;
+    flex-direction: column;
+    position: relative;
     width: 300px;
-    height: 100px;
-    background-color: rgb(187, 187, 187);
 }
 div.user-status.own {
+    align-items: flex-start;
+}
+div.user-status.opponent {
+    align-items: flex-end;
+}
+div.user-status > div.status-background {
+    position: absolute;
+    top:0;
+    z-index: -10000;
+    width: 300px;
+    height: 70px;
+    background-color: rgb(187, 187, 187);
+}
+div.user-status > div.status-background.own {
+    left: 0;
     background-color: rgb(118, 235, 124);
     clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
 }
-div.user-status.opponent {
+div.user-status > div.status-background.opponent {
+    right: 0;
     background-color: rgb(235, 118, 118);
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 25% 100%);
+}
+
+div.user-status > div.username {
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    font-size: 25px;
+}
+
+div.user-status > div.scoring {
+    display: flex;
+    justify-content: flex-end;
+    width: 250px;
+    margin-top: 0px;
+}
+div.user-status > div.scoring.own {
+    flex-direction: row;
+}
+div.user-status > div.scoring.opponent {
+    flex-direction: row-reverse;
+}
+div.user-status > div.scoring > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin: 3px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 2px 3px 10px rgba(0, 0, 255, 0.342);
+    border-style: outset;
+    border-width: 3px;
+}
+div.user-status > div.scoring.own > div.score-fails {
+    background-color: rgb(158, 192, 160);
+}
+div.user-status > div.scoring.own > div.score-hits {
+    background-color: rgb(57, 221, 65);
+}
+div.user-status > div.scoring.opponent > div.score-fails {
+    background-color: rgb(202, 160, 160);
+}
+div.user-status > div.scoring.opponent > div.score-hits {
+    background-color: rgb(223, 79, 79);
 }

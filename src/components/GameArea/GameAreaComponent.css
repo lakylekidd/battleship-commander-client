@@ -2,3 +2,8 @@ div.game-area > div.user-status-container {
     display: flex;
     justify-content: space-between;
 }
+div.game-area > div.user-status-container > div.game-status {
+    font-family: 'Barriecito', cursive;
+    font-weight: 100;
+    font-size: 23px;
+}
