@@ -115,6 +115,7 @@ class GameAreaComponent extends Component {
         this.props.exitGame(id, token);
     }
 
+    // Rendering the board for configuration
     renderConfigurationBoard = (playerId) => {
         // Locate our board
         const activeBoard = this.props.currentGame.boards.find(board => board.userId === playerId);
@@ -122,9 +123,10 @@ class GameAreaComponent extends Component {
         if (!activeBoard) return "NO ACTIVE BOARD";
 
         // Render the game area
-        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={null} />
+        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={null} configure={true} />
     }
 
+    // Rendering the opponent's board to target
     renderOpponentBoard = (playerId, currentUserTurn) => {
         // Determine which board is currently on
         const activeBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
@@ -132,7 +134,7 @@ class GameAreaComponent extends Component {
         if (!activeBoard) return "NO ACTIVE BOARD";
 
         // Render the game area
-        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={currentUserTurn} />
+        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
     }
 
     render() {
@@ -164,10 +166,14 @@ class GameAreaComponent extends Component {
                 <div className="board-div">
                     {
                         this.props.sessionState === 1 &&
+                        // In this area we are rendering the user's board
+                        // So that he can configure his ships on it.
                         this.renderConfigurationBoard(playerId)
                     }
                     {
                         this.props.sessionState === 2 &&
+                        // In this area we are only rendering the opponent's board
+                        // So that he can easily target his ships
                         this.renderOpponentBoard(playerId, currentUserTurn)
                     }
 
