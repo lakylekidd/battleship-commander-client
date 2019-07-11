@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import '../css/GameFeedback.css'
+import { changeSessionState } from '../../actions/currentGameActions'
+import { connect } from 'react-redux'
 
-export default class GameFeedback extends Component {
+class GameFeedback extends Component {
   state = {
     sessionState: 1
   }
@@ -9,9 +11,12 @@ export default class GameFeedback extends Component {
 
   handleReady = () => {
     this.setState({ sessionState: 2 })
+    this.props.changeSessionState(2)
+
   }
 
   componentDidMount() {
+    this.props.changeSessionState(1)
   }
 
   render() {
@@ -41,3 +46,7 @@ export default class GameFeedback extends Component {
     )
   }
 }
+
+
+
+export default connect(null, { changeSessionState })(GameFeedback)
