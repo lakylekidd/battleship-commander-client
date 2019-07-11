@@ -85,8 +85,9 @@ export const addNewUser = (user) => (dispatch) => {
     .catch(err => {
       // Retrieve the message
       const message = JSON.parse(err.response.text).message;
-      dispatch(setNotification(message)(dispatch));
-    })
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -110,7 +111,12 @@ export const createNewGame = (user, token) => (dispatch) => {
       dispatch(setCurrentGameId(gameId));
 
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -129,7 +135,12 @@ export const getAvailableGames = (token) => (dispatch) => {
 
       dispatch(addActiveGames(games.body.games))
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -159,7 +170,12 @@ export const joinGame = (gameId, token) => (dispatch) => {
       // Instead set game state
       dispatch(setCurrentGameId(gameId));
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -176,7 +192,12 @@ export const exitGame = (gameId, token) => (dispatch) => {
       // Disconnect from game
       disconnectUserFromGame(gameId)(dispatch);
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 /**
  * Sets the current score
@@ -190,7 +211,7 @@ export const setScores = (score) => ({
 /**
  * Fires on opponent's tile
  */
-export const fire = (boardId, tileIndex, token) => {
+export const fire = (boardId, tileIndex, token) => (dispatch) => {
   // Initiate the request
   request
     .get(`${baseUrl}/games/${boardId}/join`)
@@ -199,7 +220,12 @@ export const fire = (boardId, tileIndex, token) => {
       // Check if response is 200
 
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 /**
  * Positions a ship on user's tile

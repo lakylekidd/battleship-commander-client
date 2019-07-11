@@ -5,12 +5,7 @@ export const removeNotification = () => ({
     type: REMOVE_NOTIFICATION
 });
 
-export const setNotification = (msg) => (dispatch) => {
-    // Set the interval
-    setTimeout(() => {
-        // Remove the notification
-        dispatch(removeNotification);
-    }, 5000);
+export const setNotification = (msg) => {
     // Set the notification
     return {
         type: SET_NOTIFICATION,

@@ -16,9 +16,23 @@ class NotificationContainer extends Component {
     }
 
     render() {
+        // Show notification
+        let show = true;
+        // Check if notification exists
+        if (this.props.notification) {
+            // Remove after 3s
+            setTimeout(() => {
+                // Don't show anymore
+                show = false;
+                // Delete notification after 2s
+                setTimeout(() => {
+                    this.props.removeNotification();
+                }, 2000);
+            }, 3000);
+        }
         return (
             <div
-                className={`notification ${this.props.notification && 'show'}`}
+                className={`notification ${this.props.notification && show && 'show'}`}
                 onClick={this.close}>
                 <div>{this.props.notification}</div>
             </div>
