@@ -17,17 +17,25 @@ class BoardComponent extends Component {
         for (let i = count - 1; i >= 0; i--) {
             // Generate the tile rows for this Y index
             tileRows.push(
-                <TileRowComponent key={i} posY={i} onFireHandler={this.onFireHandler} count={count} />
+                <TileRowComponent key={i} posY={i} onFireHandler={this.onTileClickHandler} count={count} />
             )
         }
         // Set the tiles to the state
         this.setState({ tileRows: tileRows });
     }
 
-    onFireHandler = (index) => {
+    // Click handler that determines if this is a fire
+    // or if the user wants to add a ship on the board
+    onTileClickHandler = (index) => {
         // Check if this is the opponent board
-        if (this.props.opponent) {
+        if (this.props.opponent && !this.props.configure) {
+            // This is the opponent's board and configuration is not allowed
+            // Treat this click as a fire on opponent's board.
             this.props.onFireHandler(this.props.board.id, index);
+        } else if (this.props.configure) {
+            // The board is only to be configured with ships
+            // So treat this click as a set ship.
+
         }
     }
 
