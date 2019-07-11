@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent } from './../../actions/userActions';
+import GameFeedback from './GameFeedbackComponent'
+
 import "./GameAreaComponent.css";
 import UserStatusComponent from './UserStatusComponent';
 
@@ -64,6 +66,9 @@ class GameAreaComponent extends Component {
                         <h3>Battleship Commander</h3>
                     </div>
                     <UserStatusComponent username="pedro" own={false} fails="1" hits="0" />
+                </div>
+                <div className="game-feedback-container">
+                    <GameFeedback />
                 </div>
             </div>
         )
