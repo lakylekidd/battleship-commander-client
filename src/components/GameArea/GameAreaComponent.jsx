@@ -20,8 +20,8 @@ class GameAreaComponent extends Component {
         if (game.boards.length <= 1) return;
 
         // Retrieve my board and opponents board
-        const myBoard = game.boards.single(board => board.userId === this.props.currentUser.userId);
-        const opponentBoard = game.boards.single(board => board.userId !== this.props.currentUser.userId);
+        const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
+        const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
 
         // Check how many failed targets each board has
         const myFailedTargets = myBoard.tiles
@@ -106,11 +106,17 @@ class GameAreaComponent extends Component {
         return (
             <div className="game-area">
                 <div className="user-status-container">
-                    <UserStatusComponent username="lakylekidd" own={true} fails="2" hits="1" />
+                    <UserStatusComponent username="lakylekidd"
+                        own={true}
+                        fails={this.props.scores.own.failed}
+                        hits={this.props.scores.own.correct} />
                     <div className="game-status">
                         <h3>Battleship Commander</h3>
                     </div>
-                    <UserStatusComponent username="pedro" own={false} fails="1" hits="0" />
+                    <UserStatusComponent username="pedro"
+                        own={false}
+                        fails={this.props.scores.own.failed}
+                        hits={this.props.scores.own.correct} />
                 </div>
                 <div className="game-feedback-container">
                     <GameFeedback />
@@ -123,7 +129,8 @@ class GameAreaComponent extends Component {
 // Map state to props
 const mapStateToProps = (reduxState) => ({
     game: reduxState.currentGame,
-    currentUser: reduxState.currentUser
+    currentUser: reduxState.currentUser,
+    scores: reduxState.scores
 })
 
 // Export the connected component
