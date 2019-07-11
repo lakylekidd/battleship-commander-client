@@ -25,6 +25,9 @@ class GameAreaComponent extends Component {
         const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
         const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
 
+        // Check if boards are here
+        if (!myBoard || !opponentBoard) return;
+
         // Check how many failed targets each board has
         const myFailedTargets = myBoard.tiles
             .filter(tile => tile.targeted && tile.occupied === false)
@@ -83,6 +86,7 @@ class GameAreaComponent extends Component {
             // In this case the data is the game object
             // returned from the server. 
             const data = JSON.parse(result.data);
+            console.log("Incoming Data: ", data);
             // Calculate the current score based on the data
             this.calculateScore(data);
             //Add the game selected to the currentGame State
