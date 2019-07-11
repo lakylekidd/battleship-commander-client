@@ -1,13 +1,10 @@
 import React from 'react';
-
-import store from './store'
-import { Provider } from 'react-redux'
-import { Route } from 'react-router-dom'
+import store from './store';
+import { Provider } from 'react-redux';
 import './App.css';
 
 // Import Components
 import Main from './components/Main';
-import GameAreaComponent from './components/GameArea/GameAreaComponent';
 
 function App() {
   return (
