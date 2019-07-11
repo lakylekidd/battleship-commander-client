@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
 import GameFeedback from './GameFeedbackComponent';
-import { NativeEventSource, EventSourcePolyfill } from 'event-source-polyfill';
+import { EventSourcePolyfill } from 'event-source-polyfill';
 
 import "./GameAreaComponent.css";
 import UserStatusComponent from './UserStatusComponent';
@@ -18,6 +18,7 @@ class GameAreaComponent extends Component {
     // Functino that calculates the current score based on the 
     // provided game data.
     calculateScore = (game) => {
+
         // Only calculate scores if both boards are available
         if (game.boards.length <= 1) return;
 
@@ -25,6 +26,7 @@ class GameAreaComponent extends Component {
         const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
         const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
 
+        console.log("Start calculating , CHECK BOARDS", myBoard, opponentBoard)
         // Check if boards are here
         if (!myBoard || !opponentBoard) return;
 
@@ -61,6 +63,7 @@ class GameAreaComponent extends Component {
                 accuracy: opponentCorrectTargets * (opponentCorrectTargets + opponentFailedTargets)
             }
         }
+        console.log("Setting the scores: ", scores);
         // Set the scores
         this.props.setScores(scores);
     }
@@ -99,6 +102,7 @@ class GameAreaComponent extends Component {
             this.gameStream.close();
         });
     }
+
 
     componentDidMount() {
         const id = this.props.currentGame.id;
