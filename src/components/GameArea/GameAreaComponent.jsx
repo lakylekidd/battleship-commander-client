@@ -40,15 +40,15 @@ class GameAreaComponent extends Component {
     }
 
     componentDidMount() {
-        const id = this.props.gameId;
-        const token = this.props.currentUser.token;
+        const id = 14;
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoibGFreWxla2lkZCIsImlhdCI6MTU2MjgzNzE0OCwiZXhwIjoxNTYyODQ0MzQ4fQ.S3Iy4kI1kBjKgX38YBD7V1eOYXedVaDSeU58ucCv3Kw';
         this.connectUserToGame(id, token);
     }
 
     componentWillUnmount() {
         // Retrieve needed variables
-        const token = this.props.currentUser.token;
-        const gameId = this.props.currentGame.id;
+        const gameId = 14;
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInVzZXJuYW1lIjoibGFreWxla2lkZCIsImlhdCI6MTU2MjgzNzE0OCwiZXhwIjoxNTYyODQ0MzQ4fQ.S3Iy4kI1kBjKgX38YBD7V1eOYXedVaDSeU58ucCv3Kw';
         // Before component unmounts
         // exit user from current game
         this.props.exitGame(gameId, token);

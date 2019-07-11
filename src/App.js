@@ -7,6 +7,7 @@ import './App.css';
 
 // Import Components
 import Main from './components/Main';
+import GameAreaComponent from './components/GameArea/GameAreaComponent';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
 
         {/* <Route path="/" exact component={Main} /> */}
         <Main />
-
+        <GameAreaComponent />
       </div>
     </Provider>
   );
