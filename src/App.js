@@ -13,9 +13,9 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        {/* <h1> BattleShip Commander </h1>
-        <Main /> */}
-        <GameAreaComponent />
+        <h1> BattleShip Commander </h1>
+        <Main />
+        {/* <GameAreaComponent /> */}
       </div>
     </Provider>
   );
