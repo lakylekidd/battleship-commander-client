@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent } from './../../actions/userActions';
 import "./GameAreaComponent.css";
+import UserStatusComponent from './UserStatusComponent';
 
 // Define the base URL of the API
 const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
@@ -58,7 +59,8 @@ class GameAreaComponent extends Component {
         return (
             <div className="game-area">
                 <div className="user-status-container">
-
+                    <UserStatusComponent username="lakylekidd" own={true} />
+                    <UserStatusComponent username="pedro" own={false} />
                 </div>
             </div>
         )

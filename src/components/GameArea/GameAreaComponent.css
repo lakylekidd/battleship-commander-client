@@ -1,0 +1,4 @@
+div.game-area > div.user-status-container {
+    display: flex;
+    justify-content: space-between;
+}

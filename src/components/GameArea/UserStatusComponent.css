@@ -1,0 +1,13 @@
+div.user-status {
+    width: 300px;
+    height: 100px;
+    background-color: rgb(187, 187, 187);
+}
+div.user-status.own {
+    background-color: rgb(118, 235, 124);
+    clip-path: polygon(0 0, 100% 0%, 75% 100%, 0% 100%);
+}
+div.user-status.opponent {
+    background-color: rgb(235, 118, 118);
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 25% 100%);
+}
