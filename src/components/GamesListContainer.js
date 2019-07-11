@@ -20,28 +20,41 @@ class GamesListContainer extends Component {
     if (!this.props.activeGames) { return 'Loading...' }
 
     return (
-      <div className="gamesList">
-        <table className="gamesListTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Owner</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              this.props.activeGames.map(game =>
-                <tr className="tr" key={game.id}
-                  onClick={() => this.joinGame(game.id)}>
-                  <td className="td">{game.id}</td>
-                  <td className="td">{game.userId}</td>
-                  <td className="td">{game.startDate}</td>
-                </tr>
-              )
-            }
-          </tbody>
-        </table>
+      <div className="games-list">
+        <div className="table-container">
+          <table className="gamesListTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Owner</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                this.props.activeGames.map(game => {
+                  // Convert the date
+                  const dateString = new Date(game.startDate)
+                    .toLocaleString('nl', {
+                      hour12: false
+                    })
+                    .split(' ');
+
+                  return (
+                    <tr className="tr" key={game.id}
+                      onClick={() => this.joinGame(game.id)}>
+                      <td className="td">{game.id}</td>
+                      <td className="td">{game.user.username}</td>
+                      <td className="td date">
+                        {dateString[0]} - <span>{dateString[1]}</span>
+                      </td>
+                    </tr>
+                  )
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

@@ -1,21 +1,32 @@
-.gamesList {
+div.games-list {
   text-align: center;
-
+  display: flex;
+  justify-content: center;
 }
-
-.gamesListTable {
+div.games-list > div.table-container {
+  background-color: rgba(0, 0, 0, 0.39);
+  width: 400px;
+  border-radius: 5px;
+}
+div.games-list > div.table-container > .gamesListTable {
   border-collapse: collapse;
   margin: 25px auto;
-
 }
-
-.th, .td {
+div.games-list th, td {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
-
-.tr:hover {
-  background-color:#f5f5f5;
+div.games-list tr.tr {
+  transition: 0.1s linear;
+}
+div.games-list tr.tr:hover {
+  background-color:#3d3a63;
   cursor: pointer;
+  transform: scale(1.1);
+}
+div.games-list tr > td > span {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(161, 67, 67);
 }
