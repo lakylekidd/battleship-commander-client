@@ -55,7 +55,7 @@ const connectUserToGame = (gameId, token, dispatch) => {
 }
 // Action creator that at this point only sets the game ID
 // to be later retrieved from the game area component
-const setCurrentGameId = (gameId) => (dispatch) => ({
+const setCurrentGameId = (gameId) => ({
   type: SET_GAME_ID,
   payload: {
     id: gameId
@@ -99,7 +99,7 @@ export const createNewGame = (user, token) => (dispatch) => {
       // Do not connect to game from here
       // connectToGame(gameId, token)(dispatch);
       // Instead set game state
-      setCurrentGameId(gameId)(dispatch);
+      dispatch(setCurrentGameId(gameId));
 
     })
     .catch(console.error)
@@ -143,10 +143,13 @@ export const joinGame = (gameId, token) => (dispatch) => {
     .get(`${baseUrl}/games/${gameId}/join`)
     .set({ 'Authorization': 'Bearer ' + token })
     .then(response => {
+      // Retrieve the new game ID
+      const { gameId } = JSON.parse(response.text);
+
       // Do not connect to game from here
       // connectToGame(gameId, token)(dispatch);
       // Instead set game state
-      setCurrentGameId(gameId)(dispatch);
+      dispatch(setCurrentGameId(gameId));
     })
     .catch(console.error)
 }
