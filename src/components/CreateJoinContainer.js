@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createNewGame, getAvailableGames } from '../actions/userActions'
 import { connect } from 'react-redux';
 import GamesListContainer from './GamesListContainer'
+import "./css/CreateJoinContainer.css";
 
 class CreateJoinContainer extends Component {
   state = {
@@ -28,11 +29,11 @@ class CreateJoinContainer extends Component {
     }
 
     return (
-      <div>
+      <div className="create-join">
+
         <button onClick={this.createGame}>New Game</button>
-
         <button onClick={this.joinGame}>Join Game</button>
-
+        <br />
         {
           this.state.displayGames && <GamesListContainer />
         }
