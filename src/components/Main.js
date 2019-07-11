@@ -20,12 +20,12 @@ class Main extends Component {
   }
 }
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     currentUser: state.currentUser,
     currentGame: state.currentGame
   }
 }
 
-export default connect(mapDispatchToProps, null)(Main)
+export default connect(mapStateToProps, null)(Main)
 

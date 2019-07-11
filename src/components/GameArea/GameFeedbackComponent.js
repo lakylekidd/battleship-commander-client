@@ -4,13 +4,8 @@ import { changeSessionState } from '../../actions/currentGameActions'
 import { connect } from 'react-redux'
 
 class GameFeedback extends Component {
-  state = {
-    sessionState: 1
-  }
-  //create states and reducers sessionState
 
   handleReady = () => {
-    this.setState({ sessionState: 2 })
     this.props.changeSessionState(2)
 
   }
@@ -31,15 +26,15 @@ class GameFeedback extends Component {
       <div className="game-feedback">
         <h2 className="feedback">
           {
-            this.state.sessionState === 1
+            this.props.sessionState === 1
             ? 'Prepare your Board and click Ready!'
-            : this.state.sessionState === 2
+            : this.props.sessionState === 2
               ? 'Game Started'
               : 'Game Over'
           }
         </h2>
         {
-          this.state.sessionState === 1 && 
+          this.props.sessionState === 1 && 
             <button className="btn-ready" onClick={this.handleReady}> Ready </button>
         }
       </div>
@@ -47,6 +42,10 @@ class GameFeedback extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    sessionState: state.sessionState
+  }
+}
 
-
-export default connect(null, { changeSessionState })(GameFeedback)
+export default connect(mapStateToProps, { changeSessionState })(GameFeedback)
