@@ -57,7 +57,9 @@ class GameAreaComponent extends Component {
     render() {
         return (
             <div className="game-area">
-                <h1>Game Area</h1>
+                <div className="user-status-container">
+
+                </div>
             </div>
         )
     }

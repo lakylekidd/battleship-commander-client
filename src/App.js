@@ -13,10 +13,8 @@ function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <h1> BattleShip Commander </h1>
-
-        {/* <Route path="/" exact component={Main} /> */}
-        <Main />
+        {/* <h1> BattleShip Commander </h1>
+        <Main /> */}
         <GameAreaComponent />
       </div>
     </Provider>
