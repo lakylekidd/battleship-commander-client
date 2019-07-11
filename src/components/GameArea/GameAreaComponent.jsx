@@ -20,8 +20,8 @@ class GameAreaComponent extends Component {
         if (game.boards.length <= 1) return;
 
         // Retrieve my board and opponents board
-        const myBoard = game.boards.find(board => board.userId === this.props.currentUser.userId);
-        const opponentBoard = game.boards.find(board => board.userId !== this.props.currentUser.userId);
+        const myBoard = game.boards.find(board => board.userId === 1) // this.props.currentUser.userId);
+        const opponentBoard = game.boards.find(board => board.userId !== 1) //this.props.currentUser.userId);
 
         // Check how many failed targets each board has
         const myFailedTargets = myBoard.tiles
@@ -42,11 +42,15 @@ class GameAreaComponent extends Component {
         // Construct the score object
         const scores = {
             own: {
+                username: myBoard.user.username,
+                ready: myBoard.ready,
                 correct: myCorrectTargets,
                 failed: myFailedTargets,
                 accuracy: myCorrectTargets * (myCorrectTargets + myFailedTargets)
             },
             opponent: {
+                username: opponentBoard.user.username,
+                ready: opponentBoard.ready,
                 correcct: opponentCorrectTargets,
                 failed: opponentFailedTargets,
                 accuracy: opponentCorrectTargets * (opponentCorrectTargets + opponentFailedTargets)
@@ -106,14 +110,14 @@ class GameAreaComponent extends Component {
         return (
             <div className="game-area">
                 <div className="user-status-container">
-                    <UserStatusComponent username="lakylekidd"
+                    <UserStatusComponent username={this.props.scores.own.username}
                         own={true}
                         fails={this.props.scores.own.failed}
                         hits={this.props.scores.own.correct} />
                     <div className="game-status">
                         <h3>Battleship Commander</h3>
                     </div>
-                    <UserStatusComponent username="pedro"
+                    <UserStatusComponent username={this.props.scores.opponent.username}
                         own={false}
                         fails={this.props.scores.own.failed}
                         hits={this.props.scores.own.correct} />
