@@ -8,3 +8,13 @@
 div.board-container {
   display: flex;
 }
+
+button {
+  background: none;
+  border: 2px solid green;
+  color: white;
+  padding: 4px 10px;
+  margin: 20px 10px;
+  font-size: 20px;
+  line-height: 25px;
+}
