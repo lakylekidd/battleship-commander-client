@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../css/GameFeedback.css'
 import { changeSessionState } from '../../actions/currentGameActions'
 import { connect } from 'react-redux'
+import GameStarted from './GameStartedComponent'
 
 class GameFeedback extends Component {
 
@@ -27,10 +28,12 @@ class GameFeedback extends Component {
         <h2 className="feedback">
           {
             this.props.sessionState === 1
-            ? 'Prepare your Board and click Ready!'
-            : this.props.sessionState === 2
-              ? 'Game Started'
-              : 'Game Over'
+            ? `Prepare your Board and click Ready!`
+            : this.props.scores.opponent.ready === true
+              ? `Waiting for ${this.props.scores.opponent.username}...`
+              : this.props.sessionState === 2
+                ? <GameStarted /> //make a component
+                : 'Game Over'
           }
         </h2>
         {
@@ -44,7 +47,8 @@ class GameFeedback extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    sessionState: state.sessionState
+    sessionState: state.sessionState,
+    scores: state.scores
   }
 }
 
