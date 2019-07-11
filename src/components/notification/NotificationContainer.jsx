@@ -6,7 +6,7 @@ class NotificationContainer extends Component {
     render() {
         return (
             <div className="notification">
-
+                <div>Error message</div>
             </div>
         )
     }
