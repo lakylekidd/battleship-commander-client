@@ -14,7 +14,7 @@ class NotificationContainer extends Component {
 
 // Map State To Props
 const mapStateToProps = (reduxState) => ({
-    //notification: reduxState.notification
+    notification: reduxState.notification
 })
 
 // Export connected component
