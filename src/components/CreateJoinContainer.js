@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { createNewGame, getAvailableGames } from '../actions/userActions'
+import { createNewGame, getAvailableGames, removeUser } from '../actions/userActions'
 import { connect } from 'react-redux';
 import GamesListContainer from './GamesListContainer'
 import "./css/CreateJoinContainer.css";
@@ -7,6 +7,10 @@ import "./css/CreateJoinContainer.css";
 class CreateJoinContainer extends Component {
   state = {
     displayGames: false
+  }
+
+  exit = () => {
+    this.props.removeUser();
   }
 
   createGame = () => {
@@ -34,7 +38,7 @@ class CreateJoinContainer extends Component {
         <button onClick={this.createGame}>New Game</button>
         <button onClick={this.joinGame}>Join Game</button>
         <br />
-        <button className="exit" onClick={this.joinGame}>Exit</button>
+        <button className="exit" onClick={this.exit}>Exit</button>
         <br />
         {
           this.state.displayGames && <GamesListContainer />
@@ -53,4 +57,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { createNewGame, getAvailableGames })(CreateJoinContainer)
+export default connect(mapStateToProps, { removeUser, createNewGame, getAvailableGames })(CreateJoinContainer)

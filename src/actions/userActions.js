@@ -6,6 +6,7 @@ const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokua
 
 // Define Action Types
 export const SET_USER = 'SET_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 export const CREATE_GAME = 'CREATE_GAME'
 export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
@@ -24,6 +25,10 @@ const setUser = (user, token, userId) => ({
     userId
   }
 });
+// Removes the user from the reducer state
+export const removeUser = () => ({
+  type: REMOVE_USER
+})
 // Action creator that gets called each time there is an update
 // on the game object on the server.
 export const onGameEvent = (currentGameObject) => ({
