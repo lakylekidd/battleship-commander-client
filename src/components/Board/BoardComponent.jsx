@@ -70,4 +70,4 @@ const mapStateToProps = (reduxStore) => {
 }
 
 // Export the connected component
-export default connect(mapStateToProps, null)(BoardComponent);
+export default connect(mapStateToProps, { positionShip })(BoardComponent);
