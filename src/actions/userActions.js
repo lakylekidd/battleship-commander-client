@@ -1,7 +1,7 @@
 import request from 'superagent';
 
 // Define the base URL of the API
-const baseUrl = process.env.API_URL || 'http://localhost:5000';
+const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
 
 // Define Action Types
 export const SET_USER = 'SET_USER'

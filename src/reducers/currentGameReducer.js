@@ -5,7 +5,10 @@ import { GAME_DATA_RECEIVED } from '../actions/userActions'
 const reducer = (state = null, action = {}) => {
   switch (action.type) {
     case GAME_DATA_RECEIVED:
-      return action.payload
+      // Check if game data is not null
+      if (action.payload) return action.payload;
+      // Otherwise return the state
+      return state;
     default:
       return state
   }
