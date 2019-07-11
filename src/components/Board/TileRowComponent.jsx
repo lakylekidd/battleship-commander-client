@@ -14,10 +14,6 @@ export default class TileRowComponent extends Component {
         tiles: []
     }
 
-    click = (index) => {
-        console.log("CLICKED: ", index);
-    }
-
     // Generate the tiles for this row
     generateTiles = (posY, count) => {
         // Array that holds the tiles for this row
@@ -31,7 +27,7 @@ export default class TileRowComponent extends Component {
                 <TileComponent
                     key={index}
                     posY={posY} posX={i}
-                    onClick={() => this.click(index)}
+                    onClick={() => this.props.onFireHandler(index)}
                     index={index} />
             )
         }

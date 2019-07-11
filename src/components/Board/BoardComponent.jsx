@@ -17,11 +17,18 @@ class BoardComponent extends Component {
         for (let i = count - 1; i >= 0; i--) {
             // Generate the tile rows for this Y index
             tileRows.push(
-                <TileRowComponent key={i} posY={i} count={count} />
+                <TileRowComponent key={i} posY={i} onFireHandler={this.onFireHandler} count={count} />
             )
         }
         // Set the tiles to the state
         this.setState({ tileRows: tileRows });
+    }
+
+    onFireHandler = (index) => {
+        // Check if this is the opponent board
+        if (this.props.opponent) {
+            this.props.onFireHandler(this.props.board.id, index);
+        }
     }
 
     componentDidMount() {

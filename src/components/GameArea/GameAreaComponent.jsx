@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
+import { fire, connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
 import GameFeedback from './GameFeedbackComponent';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
@@ -97,6 +97,9 @@ class GameAreaComponent extends Component {
         });
     }
 
+    onFireHandler = (boardId, tileIndex) => {
+        this.props.fire(boardId, tileIndex, this.props.currentUser.token);
+    }
 
     componentDidMount() {
         const id = this.props.currentGame.id;
@@ -112,7 +115,34 @@ class GameAreaComponent extends Component {
         this.props.exitGame(id, token);
     }
 
+    renderConfigurationBoard = (playerId) => {
+        // Locate our board
+        const activeBoard = this.props.currentGame.boards.find(board => board.userId === playerId);
+        // Check if board is retrieved
+        if (!activeBoard) return "NO ACTIVE BOARD";
+
+        // Render the game area
+        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={null} />
+    }
+
+    renderOpponentBoard = (playerId, currentUserTurn) => {
+        // Determine which board is currently on
+        const activeBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+        // Check if board is retrieved
+        if (!activeBoard) return "NO ACTIVE BOARD";
+
+        // Render the game area
+        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={currentUserTurn} />
+    }
+
     render() {
+        // Check if boards exists
+        if (!this.props.currentGame.boards) return "loading..."
+        // Determine which player's turn it is
+        const playerId = this.props.currentGame.userTurn;
+        // Is it my turn?
+        const currentUserTurn = this.props.currentUser.userId === playerId;
+
         return (
             <div className="game-area">
                 <div className="user-status-container">
@@ -132,11 +162,18 @@ class GameAreaComponent extends Component {
                     <GameFeedback />
                 </div>
                 <div className="board-div">
-                    {this.props.sessionState === 2 && <BoardComponent />}
+                    {
+                        this.props.sessionState === 1 &&
+                        this.renderConfigurationBoard(playerId)
+                    }
+                    {
+                        this.props.sessionState === 2 &&
+                        this.renderOpponentBoard(playerId, currentUserTurn)
+                    }
 
                 </div>
             </div>
-        )
+        );
     }
 }
 
@@ -149,4 +186,4 @@ const mapStateToProps = (reduxState) => ({
 })
 
 // Export the connected component
-export default connect(mapStateToProps, { setScores, connectToGame, exitGame, onGameEvent })(GameAreaComponent);
+export default connect(mapStateToProps, { fire, setScores, connectToGame, exitGame, onGameEvent })(GameAreaComponent);

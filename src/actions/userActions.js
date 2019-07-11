@@ -180,3 +180,15 @@ export const setScores = (score) => ({
   type: SET_SCORES,
   payload: score
 });
+
+export const fire = (boardId, tileIndex, token) => {
+  // Initiate the request
+  request
+    .get(`${baseUrl}/games/${boardId}/join`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .then(response => {
+      // Check if response is 200
+
+    })
+    .catch(console.error)
+}
