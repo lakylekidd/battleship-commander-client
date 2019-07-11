@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 class NotificationContainer extends Component {
     render() {
         return (
-            <div className="notification">
-                <div>Error message</div>
+            <div className={`notification ${this.props.notification && 'show'}`}>
+                <div>{this.props.notification}</div>
             </div>
         )
     }
