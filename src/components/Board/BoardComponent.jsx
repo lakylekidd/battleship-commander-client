@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TileRowComponent from './TileRowComponent';
-import { positionShip } from './../../actions/userActions';
+import { positionShip, fire } from './../../actions/userActions';
 import "./BoardComponent.css";
 
 class BoardComponent extends Component {
@@ -34,8 +34,6 @@ class BoardComponent extends Component {
         //Get the board from the current User
         const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
 
-
-        
         const tileId = thisBoard.tiles[index].id;
         const token = this.props.currentUser.token
 
@@ -43,7 +41,7 @@ class BoardComponent extends Component {
         if (this.props.opponent && !this.props.configure) {
             // This is the opponent's board and configuration is not allowed
             // Treat this click as a fire on opponent's board.
-            this.props.onFireHandler(this.props.board.id, tileId, token);
+            this.props.fire(this.props.board.id, tileId, token);
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
@@ -82,4 +80,4 @@ const mapStateToProps = (reduxStore) => {
 }
 
 // Export the connected component
-export default connect(mapStateToProps, { positionShip })(BoardComponent);
+export default connect(mapStateToProps, { positionShip, fire })(BoardComponent);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fire, connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
+import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
 import GameFeedback from './GameFeedbackComponent';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
@@ -97,10 +97,6 @@ class GameAreaComponent extends Component {
         });
     }
 
-    onFireHandler = (boardId, tileId) => {
-        this.props.fire(boardId, tileId, this.props.currentUser.token);
-    }
-
     componentDidMount() {
         const id = this.props.currentGame.id;
         const token = this.props.currentUser.token;
@@ -123,7 +119,7 @@ class GameAreaComponent extends Component {
         if (!activeBoard) return "NO ACTIVE BOARD";
 
         // Render the game area
-        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={null} configure={true} />
+        return <BoardComponent board={activeBoard} opponentBoard={null} configure={true} />
     }
 
     // Rendering the opponent's board to target
@@ -134,7 +130,7 @@ class GameAreaComponent extends Component {
         if (!activeBoard) return "NO ACTIVE BOARD";
 
         // Render the game area
-        return <BoardComponent onFireHandler={this.onFireHandler} board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
+        return <BoardComponent board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
     }
 
     render() {
@@ -192,4 +188,4 @@ const mapStateToProps = (reduxState) => ({
 })
 
 // Export the connected component
-export default connect(mapStateToProps, { fire, setScores, connectToGame, exitGame, onGameEvent })(GameAreaComponent);
+export default connect(mapStateToProps, { setScores, connectToGame, exitGame, onGameEvent })(GameAreaComponent);
