@@ -65,6 +65,9 @@ class BoardComponent extends Component {
 
     render() {
 
+        // Check if i should render this board
+        //if (this.props.myTurn && !this.props.opponentBoard) return "";
+
         return (
             <div className={`board ${this.props.scores.own && 'own'} ${!this.props.scores.own && 'opponent'}`}>
                 {

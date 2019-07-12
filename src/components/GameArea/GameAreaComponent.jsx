@@ -124,28 +124,40 @@ class GameAreaComponent extends Component {
 
     // Rendering the opponent's board to target
     renderOpponentBoard = (playerId, currentUserTurn) => {
-        // Determine which board is currently on
-        const activeBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
-        // Check if board is retrieved
-        if (!activeBoard) return "NO ACTIVE BOARD";
+
+        const oppBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+        const myBoard = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId);
 
         // Check if it's user's turn to play
         const myTurn = this.props.currentUser.userId === playerId;
-        if (myTurn) {
-            // Render opponent board
-            const oppBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
-            // Render the game area
-            return <div>
-                <BoardComponent board={oppBoard} opponentBoard={true} configure={false} />
-            </div>
-        } else {
-            // render my board
-            const myBoard = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId);
-            // Render the game area
-            return <div>
-                <BoardComponent board={myBoard} opponentBoard={false} configure={false} />
-            </div>
-        }
+
+        return <div>
+            <BoardComponent board={myTurn ? oppBoard : myBoard} opponentBoard={myTurn} configure={false} myTurn={myTurn} />
+            {/* <BoardComponent board={myBoard} opponentBoard={false} configure={false} myTurn={myTurn} /> */}
+        </div>
+
+        // // Determine which board is currently on
+        // const activeBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+        // // Check if board is retrieved
+        // if (!activeBoard) return "NO ACTIVE BOARD";
+
+        // // Check if it's user's turn to play
+        // const myTurn = this.props.currentUser.userId === playerId;
+        // if (myTurn) {
+        //     // Render opponent board
+        //     const oppBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+        //     // Render the game area
+        //     return <div>
+        //         <BoardComponent board={oppBoard} opponentBoard={true} configure={false} />
+        //     </div>
+        // } else {
+        //     // render my board
+        //     const myBoard = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId);
+        //     // Render the game area
+        //     return <div>
+        //         <BoardComponent board={myBoard} opponentBoard={false} configure={false} />
+        //     </div>
+        // }
     }
 
     render() {

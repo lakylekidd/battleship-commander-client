@@ -25,11 +25,6 @@ class TileComponent extends Component {
 
 
         const showShip = (tile.occupied && !this.props.opponentBoard) ? 'ship' : '';
-
-
-
-        console.log('configure test:', this.props.configure)
-        console.log('targeted test:', tile.targeted)
         const showHit = (tile.targeted === true) ? 'hit' : '';
 
 
