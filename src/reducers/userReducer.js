@@ -1,4 +1,4 @@
-import { SET_USER } from '../actions/userActions'
+import { SET_USER, REMOVE_USER } from '../actions/userActions'
 
 const reducer = (state = null, action = {}) => {
   switch (action.type) {
@@ -6,7 +6,8 @@ const reducer = (state = null, action = {}) => {
       return {
         ...action.payload
       };
-
+    case REMOVE_USER:
+      return null;
     default:
       return state
   }

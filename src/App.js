@@ -5,12 +5,14 @@ import './App.css';
 
 // Import Components
 import Main from './components/Main';
+import NotificationContainer from './components/notification/NotificationContainer';
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
         <Main />
+        <NotificationContainer />
       </div>
     </Provider>
   );

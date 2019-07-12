@@ -1,0 +1,29 @@
+div.notification {
+    opacity: 0;
+    min-width: 200px;
+    max-width: 400px;
+    min-height: 50px;
+    border-radius: 20px;
+    background-color: rgb(149, 49, 49);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    right: 0;
+    transition: 0.2s linear;
+    padding: 10px;
+}
+div.notification.show {
+    opacity: .7;
+}
+div.notification.show:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+div.notification.show:active {
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(0.9)
+}

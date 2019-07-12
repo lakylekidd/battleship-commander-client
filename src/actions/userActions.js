@@ -1,10 +1,12 @@
 import request from 'superagent';
+import { setNotification } from './notificationActions';
 
 // Define the base URL of the API
 const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
 
 // Define Action Types
 export const SET_USER = 'SET_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 export const CREATE_GAME = 'CREATE_GAME'
 export const GAME_DATA_RECEIVED = 'GAME_DATA_RECEIVED';
 export const ACTIVE_GAMES = 'ACTIVE_GAMES';
@@ -23,6 +25,10 @@ const setUser = (user, token, userId) => ({
     userId
   }
 });
+// Removes the user from the reducer state
+export const removeUser = () => ({
+  type: REMOVE_USER
+})
 // Action creator that gets called each time there is an update
 // on the game object on the server.
 export const onGameEvent = (currentGameObject) => ({
@@ -81,7 +87,12 @@ export const addNewUser = (user) => (dispatch) => {
       const text = JSON.parse(response.text)
       dispatch(setUser(user, text.jwt, text.userId))
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -105,7 +116,12 @@ export const createNewGame = (user, token) => (dispatch) => {
       dispatch(setCurrentGameId(gameId));
 
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -124,7 +140,12 @@ export const getAvailableGames = (token) => (dispatch) => {
 
       dispatch(addActiveGames(games.body.games))
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -154,7 +175,12 @@ export const joinGame = (gameId, token) => (dispatch) => {
       // Instead set game state
       dispatch(setCurrentGameId(gameId));
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 
 /**
@@ -171,7 +197,12 @@ export const exitGame = (gameId, token) => (dispatch) => {
       // Disconnect from game
       disconnectUserFromGame(gameId)(dispatch);
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 /**
  * Sets the current score
@@ -185,7 +216,7 @@ export const setScores = (score) => ({
 /**
  * Fires on opponent's tile
  */
-export const fire = (boardId, tileIndex, token) => {
+export const fire = (boardId, tileIndex, token) => (dispatch) => {
   // Initiate the request
   request
     .get(`${baseUrl}/games/${boardId}/join`)
@@ -194,7 +225,12 @@ export const fire = (boardId, tileIndex, token) => {
       // Check if response is 200
 
     })
-    .catch(console.error)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
 /**
  * Positions a ship on user's tile
