@@ -3,15 +3,20 @@ import { connect } from 'react-redux'
 import "./TileComponent.css";
 
 class TileComponent extends Component {
+    showShip = false
 
-
-    handleClick = () => {
+    handleClick = (tileId) => {
         // Check if we are currently configuring the board
         if (this.props.configure) {
             // Position the ship
-            this.props.onClick();
+            this.props.onClick(tileId);
+            this.showShip = true
         }
 
+
+    }
+
+    componentDidMount() {
 
     }
 
@@ -21,17 +26,14 @@ class TileComponent extends Component {
     // if not enemy board, show ships and hits
 
     render() {
-
-        console.log("Generating tile ", this.props.index);
         if (!this.props.board) return "loading...";
-
         // Retrieve the current tile from the board
-        const tile = this.props.board.tiles.find(tile => tile.index === this.props.index);
-        const showShip = tile.occupied ? true : false;
+        const tile = this.props.currentGame.boards.find(board => board.id === this.props.board.id)
+            .tiles.find(tile => tile.index === this.props.index)
+        this.showShip = tile.occupied ? true : false;
         const showHit = (!this.props.configure && tile.targeted === true ? true : false);
-
         return (
-            <div onClick={this.handleClick} className={`tile ${showShip ? 'ship' : ''} ${showHit ? 'hit' : ''}`}>
+            <div onClick={() => this.handleClick(tile.id)} className={`tile ${this.showShip && 'ship'} ${showHit ? 'hit' : ''}`}>
                 <span className="label">
                     x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
                 </span>
@@ -47,6 +49,7 @@ const mapStateToProps = (reduxStore) => {
         currentGame: reduxStore.currentGame,
         currentUser: reduxStore.currentUser
     }
+    
 }
 
 // Export the connected component

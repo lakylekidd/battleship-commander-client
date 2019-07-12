@@ -33,14 +33,13 @@ class BoardComponent extends Component {
 
     // Click handler that determines if this is a fire
     // or if the user wants to add a ship on the board   
-    onTileClickHandler = (index) => {
+    onTileClickHandler = (tileId) => {
         // Get the boardId and based on that the tile id
         // Get userId
         const thisUser = this.props.currentUser.userId;
         //Get the board from the current User
         const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
-
-        const tileId = thisBoard.tiles[index].id;
+        
         const token = this.props.currentUser.token
 
         // Check if this is the opponent board

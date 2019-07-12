@@ -83,6 +83,7 @@ class GameAreaComponent extends Component {
             // In this case the data is the game object
             // returned from the server. 
             const data = JSON.parse(result.data);
+            console.log("data test:", data)
             // Calculate the current score based on the data
             this.calculateScore(data);
             //Add the game selected to the currentGame State

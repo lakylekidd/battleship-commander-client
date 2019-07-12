@@ -30,7 +30,7 @@ export default class TileRowComponent extends Component {
                     board={this.props.board}
                     opponentBoard={this.props.opponentBoard}
                     configure={this.props.configure}
-                    onClick={() => this.props.onFireHandler(index)}
+                    onClick={this.props.onFireHandler}
                     index={index}
                 />
             )

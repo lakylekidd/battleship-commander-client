@@ -267,6 +267,7 @@ export const fire = (boardId, tileId, token) => (dispatch) => {
  * Positions a ship on user's tile
  */
 export const positionShip = (boardId, tileId, token) => (dispatch) => {
+  console.log('Positioning Ship', boardId, tileId, token)
   // Position the ship on the server directly
   request
     .post(`${baseUrl}/games/${boardId}/place-ship`)
