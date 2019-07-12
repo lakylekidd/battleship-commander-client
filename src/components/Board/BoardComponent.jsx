@@ -33,6 +33,8 @@ class BoardComponent extends Component {
         const thisUser = this.props.currentUser.userId;
         //Get the board from the current User
         const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
+
+
         
         const tileId = thisBoard.tiles[index].id;
         const token = this.props.currentUser.token
@@ -45,7 +47,7 @@ class BoardComponent extends Component {
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
-            this.props.positionShip(this.props.board.id, tileId, token);
+            this.props.positionShip(thisBoard.id, tileId, token);
         }
     }
 
