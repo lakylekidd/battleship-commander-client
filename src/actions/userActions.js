@@ -171,9 +171,10 @@ export const joinGame = (gameId, token) => (dispatch) => {
       const { gameId } = JSON.parse(response.text);
 
       // Do not connect to game from here
-      // connectToGame(gameId, token)(dispatch);
       // Instead set game state
       dispatch(setCurrentGameId(gameId));
+      connectToGame(gameId, token)(dispatch);
+
     })
     .catch(err => {
       // Retrieve the message

@@ -28,7 +28,8 @@ export default class TileRowComponent extends Component {
                     key={index}
                     posY={posY} posX={i}
                     onClick={() => this.props.onFireHandler(index)}
-                    index={index} />
+                    index={index} 
+                    />
             )
         }
         // Set the tiles to the state

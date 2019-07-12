@@ -26,24 +26,32 @@ class BoardComponent extends Component {
     }
 
     // Click handler that determines if this is a fire
-    // or if the user wants to add a ship on the board
+    // or if the user wants to add a ship on the board   
     onTileClickHandler = (index) => {
+        // Get the boardId and based on that the tile id
+        // Get userId
+        const thisUser = this.props.currentUser.userId;
+        //Get the board from the current User
+        const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
+        
+        const tileId = thisBoard.tiles[index].id;
+
         // Check if this is the opponent board
         if (this.props.opponent && !this.props.configure) {
             // This is the opponent's board and configuration is not allowed
             // Treat this click as a fire on opponent's board.
-            this.props.onFireHandler(this.props.board.id, index);
+            this.props.onFireHandler(this.props.board.id, tileId);
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
-            this.props.positionShip(this.props.board.id, index);
+            this.props.positionShip(this.props.board.id, tileId);
         }
     }
 
     componentDidMount() {
         // Retrieve the required props by calculating the 
         // square root of the total tiles
-        const tiles = this.props.game.boards[0].tiles;
+        const tiles = this.props.currentGame.boards[0].tiles;
         const size = parseInt(Math.sqrt(tiles.length));
         // Generate the tile rows
         this.generateTileRows(size);
@@ -64,8 +72,9 @@ class BoardComponent extends Component {
 // Map state to props
 const mapStateToProps = (reduxStore) => {
     return {
-        game: reduxStore.currentGame,
-        scores: reduxStore.scores
+        currentGame: reduxStore.currentGame,
+        scores: reduxStore.scores,
+        currentUser: reduxStore.currentUser
     }
 }
 
