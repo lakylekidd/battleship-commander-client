@@ -25,7 +25,7 @@ class TileComponent extends Component {
 
         // Retrieve the current tile from the board
         const tile = this.board.tiles.find(tile => tile.index === this.props.index);
-        const showShip = ((this.configure || this.opponentBoard === false) && tile.occupied == true ? true : false);
+        const showShip = ((this.configure || this.opponentBoard === false) && tile.occupied === true ? true : false);
         const showHit = (!this.configure && tile.targeted === true ? true : false);
 
         return (

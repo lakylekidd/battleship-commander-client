@@ -8,6 +8,13 @@ div.tile {
     margin: 1px;
     transition: 0.2s linear;
 }
+div.tile.ship {
+    opacity: .5;
+}
+div.tile.hit {
+    opacity: .1;
+}
+
 div.tile > span {
     opacity: 0;
     background-color: rgba(36, 36, 36, 0.274);
