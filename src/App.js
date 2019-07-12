@@ -6,6 +6,7 @@ import './App.css';
 // Import Components
 import Main from './components/Main';
 import NotificationContainer from './components/notification/NotificationContainer';
+import GameAudioComponent from './components/GameAudio/GameAudioComponent';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <div className="App">
         <Main />
         <NotificationContainer />
+        <GameAudioComponent />
       </div>
     </Provider>
   );
