@@ -88,10 +88,15 @@ export const addNewUser = (user) => (dispatch) => {
       dispatch(setUser(user, text.jwt, text.userId))
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 
@@ -117,10 +122,15 @@ export const createNewGame = (user, token) => (dispatch) => {
 
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 
@@ -141,10 +151,15 @@ export const getAvailableGames = (token) => (dispatch) => {
       dispatch(addActiveGames(games.body.games))
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 
@@ -177,10 +192,15 @@ export const joinGame = (gameId, token) => (dispatch) => {
 
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 
@@ -199,10 +219,15 @@ export const exitGame = (gameId, token) => (dispatch) => {
       disconnectUserFromGame(gameId)(dispatch);
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 /**
@@ -226,10 +251,15 @@ export const fire = (boardId, tileId, token) => (dispatch) => {
       // Check if response is 200
     })
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }
 /**
@@ -240,7 +270,7 @@ export const positionShip = (boardId, tileId, token) => (dispatch) => {
   request
     .post(`${baseUrl}/games/${boardId}/place-ship`)
     .set({ 'Authorization': 'Bearer ' + token })
-    .send({boardId, tileId})
+    .send({ boardId, tileId })
     .then(response => response)
     .catch(err => {
       // Retrieve the message
