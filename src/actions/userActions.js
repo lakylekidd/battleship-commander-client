@@ -1,8 +1,9 @@
 import request from 'superagent';
 import { setNotification } from './notificationActions';
+import config from './../config';
 
 // Define the base URL of the API
-const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
+const baseUrl = config.apiUrl //'http://localhost:5000';
 
 // Define Action Types
 export const SET_USER = 'SET_USER'
@@ -273,9 +274,14 @@ export const positionShip = (boardId, tileId, token) => (dispatch) => {
     .send({ boardId, tileId })
     .then(response => response)
     .catch(err => {
-      // Retrieve the message
-      const message = JSON.parse(err.response.text).message;
-      // Show notification to the user
-      dispatch(setNotification(message));
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
     });
 }

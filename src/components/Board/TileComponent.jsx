@@ -10,7 +10,6 @@ class TileComponent extends Component {
         if (this.props.configure) {
             // Position the ship
             this.props.onClick();
-
         }
 
 
@@ -23,13 +22,16 @@ class TileComponent extends Component {
 
     render() {
 
+        console.log("Generating tile ", this.props.index);
+        if (!this.props.board) return "loading...";
+
         // Retrieve the current tile from the board
-        const tile = this.board.tiles.find(tile => tile.index === this.props.index);
-        const showShip = ((this.configure || this.opponentBoard === false) && tile.occupied === true ? true : false);
-        const showHit = (!this.configure && tile.targeted === true ? true : false);
+        const tile = this.props.board.tiles.find(tile => tile.index === this.props.index);
+        const showShip = tile.occupied ? true : false;
+        const showHit = (!this.props.configure && tile.targeted === true ? true : false);
 
         return (
-            <div onClick={this.handleClick} className={`tile ${showShip && 'ship'} ${showHit && 'hit'}`}>
+            <div onClick={this.handleClick} className={`tile ${showShip ? 'ship' : ''} ${showHit ? 'hit' : ''}`}>
                 <span className="label">
                     x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
                 </span>
@@ -42,6 +44,7 @@ class TileComponent extends Component {
 // Map state to props
 const mapStateToProps = (reduxStore) => {
     return {
+        currentGame: reduxStore.currentGame,
         currentUser: reduxStore.currentUser
     }
 }
