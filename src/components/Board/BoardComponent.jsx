@@ -39,10 +39,8 @@ class BoardComponent extends Component {
         const thisUser = this.props.currentUser.userId;
         //Get the board from the current User
         const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
-        
-        const token = this.props.currentUser.token
 
-        console.log('CLICKED ', tileId, this.props.opponentBoard, this.props.configure)
+        const token = this.props.currentUser.token
 
         // Check if this is the opponent board
         if (this.props.opponentBoard && !this.props.configure) {
@@ -66,7 +64,7 @@ class BoardComponent extends Component {
     }
 
     render() {
-        
+
         return (
             <div className={`board ${this.props.scores.own && 'own'} ${!this.props.scores.own && 'opponent'}`}>
                 {

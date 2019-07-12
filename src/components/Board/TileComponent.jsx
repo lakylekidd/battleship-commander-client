@@ -22,10 +22,19 @@ class TileComponent extends Component {
         // Retrieve the current tile from the board
         const tile = this.props.currentGame.boards.find(board => board.id === this.props.board.id)
             .tiles.find(tile => tile.index === this.props.index)
-        const showShip = (!this.props.opponentBoard && this.props.configure && tile.occupied)
-        const showHit = (!this.props.configure && tile.targeted === true ? true : false);
+
+
+        const showShip = (tile.occupied && !this.props.opponentBoard) ? 'ship' : '';
+
+
+
+        console.log('configure test:', this.props.configure)
+        console.log('targeted test:', tile.targeted)
+        const showHit = (tile.targeted === true) ? 'hit' : '';
+
+
         return (
-            <div onClick={() => this.handleClick(tile.id)} className={`tile ${showShip && 'ship'} ${showHit ? 'hit' : ''}`}>
+            <div onClick={() => this.handleClick(tile.id)} className={`tile ${showShip} ${showHit}`}>
                 <span className="label">
                     x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
                 </span>
@@ -41,7 +50,7 @@ const mapStateToProps = (reduxStore) => {
         currentGame: reduxStore.currentGame,
         currentUser: reduxStore.currentUser
     }
-    
+
 }
 
 // Export the connected component

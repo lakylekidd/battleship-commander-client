@@ -129,10 +129,23 @@ class GameAreaComponent extends Component {
         // Check if board is retrieved
         if (!activeBoard) return "NO ACTIVE BOARD";
 
-        // Render the game area
-        return <div>
-            <BoardComponent board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
-        </div>
+        // Check if it's user's turn to play
+        const myTurn = this.props.currentUser.userId === playerId;
+        if (myTurn) {
+            // Render opponent board
+            const oppBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+            // Render the game area
+            return <div>
+                <BoardComponent board={oppBoard} opponentBoard={true} configure={false} />
+            </div>
+        } else {
+            // render my board
+            const myBoard = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId);
+            // Render the game area
+            return <div>
+                <BoardComponent board={myBoard} opponentBoard={false} configure={false} />
+            </div>
+        }
     }
 
     render() {
@@ -169,7 +182,7 @@ class GameAreaComponent extends Component {
                         this.renderConfigurationBoard(this.props.currentUser.userId)
                     }
                     {
-                        this.props.sessionState === 2 && 
+                        this.props.sessionState === 2 && this.props.currentGame &&
                         // In this area we are only rendering the opponent's board
                         // Only if it is the current users turn
 
