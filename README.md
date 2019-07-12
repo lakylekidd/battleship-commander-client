@@ -47,4 +47,6 @@ api
 ## TODOS
 * Convert exit button to a component and implement exit button throughout the game
 * Change color of game title inside the game component
-* Implement Fire, Game Ready and Ship Placement actions
+* Implement Fire, Game Ready and Ship Placement actions.
+* The ready button will only become available when the user has placed all of his ships on the board.
+* Notifications component implemented. Upon error message, the return error message should be sent as JSON and in a message property.

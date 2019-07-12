@@ -36,7 +36,7 @@ class BoardComponent extends Component {
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
-            this.props.positionShip(this.board.id, index);
+            this.props.positionShip(this.props.board.id, index);
         }
     }
 

@@ -7,6 +7,12 @@ div.game-area > div.user-status-container > div.game-status {
     font-weight: 100;
     font-size: 23px;
 }
+div.game-area > div.user-status-container > div.game-status {
+    color: white;
+}
+div.game-area > div.user-status-container > div.game-status h3 {
+    font-size: 28px;
+}
 
 .board-div {
     /* position: absolute;
