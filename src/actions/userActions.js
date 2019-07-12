@@ -224,7 +224,6 @@ export const fire = (boardId, tileId, token) => (dispatch) => {
     .set({ 'Authorization': 'Bearer ' + token })
     .then(response => {
       // Check if response is 200
-
     })
     .catch(err => {
       // Retrieve the message
@@ -236,7 +235,17 @@ export const fire = (boardId, tileId, token) => (dispatch) => {
 /**
  * Positions a ship on user's tile
  */
-export const positionShip = (boardId, tileIndex) => {
+export const positionShip = (boardId, tileId, token) => (dispatch) => {
   // Position the ship on the server directly
-
+  request
+    .post(`${baseUrl}/games/${boardId}/place-ship`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .send({boardId, tileId})
+    .then(response => response)
+    .catch(err => {
+      // Retrieve the message
+      const message = JSON.parse(err.response.text).message;
+      // Show notification to the user
+      dispatch(setNotification(message));
+    });
 }
