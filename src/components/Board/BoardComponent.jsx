@@ -18,7 +18,13 @@ class BoardComponent extends Component {
         for (let i = count - 1; i >= 0; i--) {
             // Generate the tile rows for this Y index
             tileRows.push(
-                <TileRowComponent key={i} posY={i} onFireHandler={this.onTileClickHandler} count={count} />
+                <TileRowComponent
+                    key={i} posY={i}
+                    onFireHandler={this.onTileClickHandler}
+                    count={count}
+                    board={this.props.board}
+                    opponentBoard={this.props.opponentBoard}
+                    configure={this.props.configure} />
             )
         }
         // Set the tiles to the state
