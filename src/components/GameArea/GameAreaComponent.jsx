@@ -97,8 +97,8 @@ class GameAreaComponent extends Component {
         });
     }
 
-    onFireHandler = (boardId, tileIndex) => {
-        this.props.fire(boardId, tileIndex, this.props.currentUser.token);
+    onFireHandler = (boardId, tileId) => {
+        this.props.fire(boardId, tileId, this.props.currentUser.token);
     }
 
     componentDidMount() {

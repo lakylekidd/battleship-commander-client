@@ -217,7 +217,7 @@ export const setScores = (score) => ({
 /**
  * Fires on opponent's tile
  */
-export const fire = (boardId, tileIndex, token) => (dispatch) => {
+export const fire = (boardId, tileId, token) => (dispatch) => {
   // Initiate the request
   request
     .get(`${baseUrl}/games/${boardId}/join`)
