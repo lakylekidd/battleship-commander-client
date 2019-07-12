@@ -35,16 +35,17 @@ class BoardComponent extends Component {
         const thisBoard = this.props.currentGame.boards.filter(board => board.userId === thisUser)[0]
         
         const tileId = thisBoard.tiles[index].id;
+        const token = this.props.currentUser.token
 
         // Check if this is the opponent board
         if (this.props.opponent && !this.props.configure) {
             // This is the opponent's board and configuration is not allowed
             // Treat this click as a fire on opponent's board.
-            this.props.onFireHandler(this.props.board.id, tileId);
+            this.props.onFireHandler(this.props.board.id, tileId, token);
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
-            this.props.positionShip(this.props.board.id, tileId);
+            this.props.positionShip(this.props.board.id, tileId, token);
         }
     }
 
