@@ -243,11 +243,12 @@ export const setScores = (score) => ({
 /**
  * Fires on opponent's tile
  */
-export const fire = (boardId, tileId, token) => (dispatch) => {
+export const fire = (gameId, boardId, tileId, token) => (dispatch) => {
   // Initiate the request
   request
-    .get(`${baseUrl}/games/${boardId}/join`)
+    .post(`${baseUrl}/games/${gameId}/fire`)
     .set({ 'Authorization': 'Bearer ' + token })
+    .send({ boardId, tileId })
     .then(response => {
       // Check if response is 200
     })
@@ -273,6 +274,30 @@ export const positionShip = (boardId, tileId, token) => (dispatch) => {
     .post(`${baseUrl}/games/${boardId}/place-ship`)
     .set({ 'Authorization': 'Bearer ' + token })
     .send({ boardId, tileId })
+    .then(response => response)
+    .catch(err => {
+      try {
+        // Retrieve the message
+        const message = JSON.parse(err.response.text).message;
+        // Show notification to the user
+        dispatch(setNotification(message));
+      }
+      catch {
+
+      }
+    });
+}
+
+/**
+ * Positions a ship on user's tile
+ */
+export const ready = (gameId, boardId, token) => (dispatch) => {
+
+  // Position the ship on the server directly
+  request
+    .post(`${baseUrl}/games/${gameId}/ready/${boardId}`)
+    .set({ 'Authorization': 'Bearer ' + token })
+    .send({ boardId: gameId, tileId: boardId })
     .then(response => response)
     .catch(err => {
       try {

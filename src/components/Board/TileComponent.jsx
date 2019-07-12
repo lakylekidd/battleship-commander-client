@@ -3,17 +3,9 @@ import { connect } from 'react-redux'
 import "./TileComponent.css";
 
 class TileComponent extends Component {
-    showShip = false
 
     handleClick = (tileId) => {
-        // Check if we are currently configuring the board
-        if (this.props.configure) {
-            // Position the ship
-            this.props.onClick(tileId);
-            this.showShip = true
-        }
-
-
+        this.props.onClick(tileId);
     }
 
     componentDidMount() {
@@ -30,10 +22,10 @@ class TileComponent extends Component {
         // Retrieve the current tile from the board
         const tile = this.props.currentGame.boards.find(board => board.id === this.props.board.id)
             .tiles.find(tile => tile.index === this.props.index)
-        this.showShip = tile.occupied ? true : false;
+        const showShip = (!this.props.opponentBoard && this.props.configure && tile.occupied)
         const showHit = (!this.props.configure && tile.targeted === true ? true : false);
         return (
-            <div onClick={() => this.handleClick(tile.id)} className={`tile ${this.showShip && 'ship'} ${showHit ? 'hit' : ''}`}>
+            <div onClick={() => this.handleClick(tile.id)} className={`tile ${showShip && 'ship'} ${showHit ? 'hit' : ''}`}>
                 <span className="label">
                     x:{this.props.posX} y:{this.props.posY} i:{this.props.index}
                 </span>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../css/GameFeedback.css'
 import { changeSessionState } from '../../actions/currentGameActions'
+import { ready } from './../../actions/userActions'
 import { connect } from 'react-redux'
 import GameStarted from './GameStartedComponent'
 
@@ -13,7 +14,9 @@ class GameFeedback extends Component {
     // Also push the board to the server
     // So that other users know that they are ready
     this.props.changeSessionState(2)
-
+    // Locate the users board
+    const board = this.props.currentGame.boards.find(board => board.user.id === this.props.currentUser.userId)
+    this.props.ready(this.props.currentGame.id, board.id, this.props.currentUser.token)
   }
 
   componentDidMount() {
@@ -21,6 +24,14 @@ class GameFeedback extends Component {
   }
 
   render() {
+
+    // Check if the board has already max occupied tiles
+    const occupiedTiles = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId)
+      .tiles.filter(t => t.occupied).length
+    
+    const enableButton = occupiedTiles === 2
+
+
     return (
       <div className="game-feedback">
         <h2 className="feedback">
@@ -35,7 +46,7 @@ class GameFeedback extends Component {
           }
         </h2>
         {
-          this.props.sessionState === 1 &&
+          this.props.sessionState === 1 && enableButton &&
           <button className="btn-ready" onClick={this.handleReady}> Ready </button>
         }
       </div>
@@ -47,8 +58,10 @@ class GameFeedback extends Component {
 const mapStateToProps = (state) => {
   return {
     sessionState: state.sessionState,
+    currentGame: state.currentGame,
+    currentUser: state.currentUser,
     scores: state.scores
   }
 }
 // Export the connected component
-export default connect(mapStateToProps, { changeSessionState })(GameFeedback)
+export default connect(mapStateToProps, { changeSessionState, ready })(GameFeedback)

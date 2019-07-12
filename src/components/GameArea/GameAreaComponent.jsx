@@ -130,7 +130,9 @@ class GameAreaComponent extends Component {
         if (!activeBoard) return "NO ACTIVE BOARD";
 
         // Render the game area
-        return <BoardComponent board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
+        return <div>
+            <BoardComponent board={activeBoard} opponentBoard={currentUserTurn} configure={false} />
+        </div>
     }
 
     render() {
@@ -164,11 +166,13 @@ class GameAreaComponent extends Component {
                         this.props.sessionState === 1 &&
                         // In this area we are rendering the user's board
                         // So that he can configure his ships on it.
-                        this.renderConfigurationBoard(playerId)
+                        this.renderConfigurationBoard(this.props.currentUser.userId)
                     }
                     {
-                        this.props.sessionState === 2 &&
+                        this.props.sessionState === 2 && 
                         // In this area we are only rendering the opponent's board
+                        // Only if it is the current users turn
+
                         // So that he can easily target his ships
                         this.renderOpponentBoard(playerId, currentUserTurn)
                     }

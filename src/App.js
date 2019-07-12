@@ -14,7 +14,7 @@ function App() {
       <div className="App">
         <Main />
         <NotificationContainer />
-        <GameAudioComponent />
+        
       </div>
     </Provider>
   );

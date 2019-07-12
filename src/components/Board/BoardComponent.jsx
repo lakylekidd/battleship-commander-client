@@ -42,11 +42,13 @@ class BoardComponent extends Component {
         
         const token = this.props.currentUser.token
 
+        console.log('CLICKED ', tileId, this.props.opponentBoard, this.props.configure)
+
         // Check if this is the opponent board
-        if (this.props.opponent && !this.props.configure) {
+        if (this.props.opponentBoard && !this.props.configure) {
             // This is the opponent's board and configuration is not allowed
             // Treat this click as a fire on opponent's board.
-            this.props.fire(this.props.board.id, tileId, token);
+            this.props.fire(this.props.currentGame.id, this.props.board.id, tileId, token);
         } else if (this.props.configure) {
             // The board is only to be configured with ships
             // So treat this click as a set ship.
@@ -64,6 +66,7 @@ class BoardComponent extends Component {
     }
 
     render() {
+        
         return (
             <div className={`board ${this.props.scores.own && 'own'} ${!this.props.scores.own && 'opponent'}`}>
                 {
