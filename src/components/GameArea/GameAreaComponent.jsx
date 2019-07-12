@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { connectToGame, exitGame, onGameEvent, setScores } from './../../actions/userActions';
 import GameFeedback from './GameFeedbackComponent';
 import { EventSourcePolyfill } from 'event-source-polyfill';
+import config from './../../config';
 
 import "./GameAreaComponent.css";
 import UserStatusComponent from './UserStatusComponent';
 import BoardComponent from '../Board/BoardComponent'
-
-// Define the base URL of the API
-const baseUrl = process.env.API_URL || 'https://battleship-commander-api.herokuapp.com'; //'http://localhost:5000';
 
 class GameAreaComponent extends Component {
 
@@ -78,7 +76,8 @@ class GameAreaComponent extends Component {
         // New game ID is used to connect to the stream
         // Initialize connection to the game stream.
         // Initialize the stream using the game id provided
-        this.gameStream = new EventSourcePolyfill(`${baseUrl}/games/${gameId}/stream`, eventSourceInitDict);
+        const url = config.apiUrl;
+        this.gameStream = new EventSourcePolyfill(`${url}/games/${gameId}/stream`, eventSourceInitDict);
         this.gameStream.onmessage = result => {
             // Retrieve the data from the event
             // In this case the data is the game object
