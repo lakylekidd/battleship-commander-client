@@ -125,11 +125,15 @@ class GameAreaComponent extends Component {
     // Rendering the opponent's board to target
     renderOpponentBoard = (playerId, currentUserTurn) => {
 
-        const oppBoard = this.props.currentGame.boards.find(board => board.userId !== playerId);
+        const oppBoard = this.props.currentGame.boards.find(board => board.userId !== this.props.currentUser.userId);
         const myBoard = this.props.currentGame.boards.find(board => board.userId === this.props.currentUser.userId);
 
         // Check if it's user's turn to play
         const myTurn = this.props.currentUser.userId === playerId;
+
+        console.log("I AM USER ", this.props.currentUser.userId, " My Board is: ", myBoard);
+        console.log(myTurn ? "Rendering opponent's board" : "Rendering my board");
+        console.log(myTurn ? oppBoard : myBoard);
 
         return <div>
             <BoardComponent board={myTurn ? oppBoard : myBoard} opponentBoard={myTurn} configure={false} myTurn={myTurn} />

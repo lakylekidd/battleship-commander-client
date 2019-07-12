@@ -28,7 +28,8 @@ class BoardComponent extends Component {
             )
         }
         // Set the tiles to the state
-        this.setState({ tileRows: tileRows });
+        //this.setState({ tileRows: tileRows });
+        this.tileRows = tileRows;
     }
 
     // Click handler that determines if this is a fire
@@ -65,14 +66,37 @@ class BoardComponent extends Component {
 
     render() {
 
+        // Retrieve the required props by calculating the 
+        // square root of the total tiles
+        const tiles = this.props.currentGame.boards[0].tiles;
+        const size = parseInt(Math.sqrt(tiles.length));
+
+        // Array that holds the tile rows for this board
+        let tileRows = [];
+        // Loop through tile row count to generate the tile rows
+        for (let i = size - 1; i >= 0; i--) {
+            // Generate the tile rows for this Y index
+            tileRows.push(
+                <TileRowComponent
+                    key={i} posY={i}
+                    onFireHandler={this.onTileClickHandler}
+                    count={size}
+                    board={this.props.board}
+                    opponentBoard={this.props.opponentBoard}
+                    configure={this.props.configure} />
+            )
+        }
+
+        console.log("Rendering board")
+
         // Check if i should render this board
         //if (this.props.myTurn && !this.props.opponentBoard) return "";
 
         return (
             <div className={`board ${this.props.scores.own && 'own'} ${!this.props.scores.own && 'opponent'}`}>
                 {
-                    this.state.tileRows.length > 0 &&
-                    this.state.tileRows
+                    tileRows.length > 0 &&
+                    tileRows
                 }
             </div>
         )
